@@ -1,0 +1,137 @@
+    <link rel="stylesheet" href="/Public/css/bootstrap/fontawesome/css/font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css">
+    <![endif]-->
+    <style type="text/css">
+        .favico{margin-top:8%;margin-bottom:15%;padding-left:23%;}
+        .top-nav{position:fixed;overflow-y:auto;width:15%;height:100%;margin-right:0.5%;padding:0.8% 0.8% 0.8% 1.2%;background:#111111;box-shadow:0 2px 2px 0 rgba(0,0,0,0.1)}
+        .main-nav li{font-size:16px;}
+        .main-nav li a{color:#DDDDDD;}
+        .main-nav li a:hover{color:#23527c;}
+        .sub-nav{padding-left: 30px;}
+        .sub-nav li{font-size:12px;}
+        .sub-nav li a{color:#DDDDDD;}
+        .sub-nav li a:hover{color:#23527c;}
+
+        .info-bar{position:fixed;left:15%;z-index:100;width:85%;padding:1.3% 1% 1.3% 1.5%;background:white;box-shadow:0 1px 2px 0 rgba(0,0,0,0.1)}
+        .operator-info{font-size:14px;font-weight:bold;color:#506470;float:right;}
+        .operator-info .back{margin:0px 650px 0px 0px;border:0px;}
+        .operator-info .role{margin:10px 5px 20px 20px;}
+        .operator-info .settings{margin:10px 20px 20px 5px;cursor:pointer;}
+        .operator-info .control-area{margin:10px 80px 20px 15px;}
+        .back-bar{position:absolute;left:15%;width:85%;padding:6% 1% 1.3% 3%;font-size:14px;}
+    </style>
+
+<nav class="top-nav">
+  <ul class="nav nav-pills nav-stacked main-nav">
+    <li class="favico"><img width="60%" height="60%" src="/Public/img/logo.png"/></li>
+    <if condition="$Think.session.isSuperAdmin eq 1">
+    <li role="presentation" id="headingOne" nav="10">
+        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">教师管理</a>
+    </li>
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" pnav="10">
+        <ul class="nav nav-pills nav-stacked sub-nav">
+            <li role="presentation" nav="11"><a href="../Teacher/addTeacher?nav=11&pnav=10">添加教师</a></li>
+            <li role="presentation" nav="12"><a href="../Teacher/showTeachers?nav=12&pnav=10">教师列表</a></li>
+        </ul>
+    </div>
+    </if>
+    <if condition="$Think.session.isSuperAdmin eq 1">
+    <li role="presentation" id="headingTwo" nav="20">
+        <a data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">学生管理</a>
+    </li>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" pnav="20">
+        <ul class="nav nav-pills nav-stacked sub-nav">
+            <li role="presentation" nav="21"><a href="../Student/addStudent?nav=21&pnav=20">添加学生</a></li>
+            <li role="presentation" nav="22"><a href="../Student/showStudents?nav=22&pnav=20">学生列表</a></li>
+        </ul>
+    </div>
+    </if>
+    <if condition="$Think.session.isSuperAdmin eq 1">
+    <li role="presentation" id="headingThree" nav="30">
+        <a data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">教室管理</a>
+    </li>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" pnav="30">
+        <ul class="nav nav-pills nav-stacked sub-nav">
+            <li role="presentation" nav="31"><a href="../Classroom/addClassroom?nav=31&pnav=30">添加教室</a></li>
+            <li role="presentation" nav="32"><a href="../Classroom/showClassrooms?nav=32&pnav=30">教室列表</a></li>
+        </ul>
+    </div>
+    </if>
+    <if condition="($Think.session.isSuperAdmin eq 1) OR ($Think.session.ROLE_TEACHER eq 1)">
+    <li role="presentation" id="headingFour" nav="40">
+        <a data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">课程管理</a>
+    </li>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour" pnav="40">
+        <ul class="nav nav-pills nav-stacked sub-nav">
+            <if condition="($Think.session.isSuperAdmin eq 1)">
+            <li role="presentation" nav="41"><a href="../Class/addClassType?nav=41&pnav=40">新建课程类型</a></li>
+            <li role="presentation" nav="42"><a href="../Class/showClassTypes?nav=42&pnav=40">课程类型列表</a></li>
+            <li role="presentation" nav="43"><a href="../Class/addClass?nav=43&pnav=40">新建课程</a></li>
+            <li role="presentation" nav="44"><a href="../Class/showClassList?nav=44&pnav=40">课程列表</a></li>
+            </if>
+            <li role="presentation" nav="45"><a href="../Class/showClasses?nav=45&pnav=40&teacherName=&teacherId=0&classroomId=0&ym=">课程查询</a></li>
+        </ul>
+    </div>
+    </if>
+    <if condition="$Think.session.isSuperAdmin eq 1">
+    <li role="presentation" id="headingFive" nav="50">
+        <a data-toggle="collapse" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">财务管理</a>
+    </li>
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive" pnav="50">
+        <ul class="nav nav-pills nav-stacked sub-nav">
+            <li role="presentation" nav="51"><a href="../Finance/showFinanceDetail?nav=51&pnav=50&ym=">收支明细</a></li>
+         <!--   <li role="presentation" nav="52"><a href="../Finance/showFinanceTotal?nav=52&pnav=50">收支总计</a></li> -->
+        </ul>
+    </div>
+    </if>
+    <if condition="$Think.session.isSuperAdmin eq 1">
+ <!--   <li role="presentation" id="headingSix" nav="60">
+        <a data-toggle="collapse" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix">统计信息</a>
+    </li>
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix" pnav="60">
+        <ul class="nav nav-pills nav-stacked sub-nav">
+            <li role="presentation" nav="61"><a href="#">统计明细</a></li>
+        </ul>
+    </div> -->
+    </if>
+    <if condition="$Think.session.isSuperAdmin eq 1">
+    <li role="presentation" id="headingSeven" nav="70">
+        <a data-toggle="collapse" href="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">人员管理</a>
+    </li>
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven" pnav="70">
+        <ul class="nav nav-pills nav-stacked sub-nav">
+            <li role="presentation" nav="71"><a href="../Role/showAddOperator?nav=71&pnav=70">添加人员</a></li>
+            <li role="presentation" nav="72"><a href="../Role/showOperatorList?nav=72&pnav=70">人员列表</a></li>
+        </ul>
+    </div>
+    </if>
+  </ul>
+</nav>
+
+
+<div class="info-bar">
+    <div class="operator-info">
+        <button type="button" class="btn btn-default back" style="color:#506470;font-weight:bold;" onclick="javascript:history.back();">&laquo;返回</button>
+        <span class="role">{$_SESSION['role']}:{$_SESSION['operatorName']}</span>
+        <span class="settings" onclick="location.href='../Operator/profile'"><i class="icon-cog" style="font-size:14px;font-weight:bold;">设置</i></span>
+        <span class="control-area"><a style="text-decoration:none;color:#506470;" href="/index.php/Home/Operator/logout">退出</a></span>
+    </div>
+</div>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $("li[role='presentation']").click(function(){
+            $("div[role='tabpanel']").removeClass("in");
+            $("li[role='presentation']").removeClass("active");
+            $(this).addClass("active");       
+        });
+
+        $(document).ready(function() {
+            $("div[pnav='{$_SESSION['pnav']}']").addClass("in");
+            $("li[nav='{$_SESSION['nav']}']").addClass("active");
+        }); 
+
+    </script>

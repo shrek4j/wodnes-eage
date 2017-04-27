@@ -1,0 +1,23 @@
+.global{
+    font-family: "微软雅黑","华文细黑",Helvetica,Tahoma,Arial,STXihei,
+    		"Microsoft YaHei",SimSun,"宋体",Heiti,"黑体",sans-serif;
+    font-size:14px;
+    padding-bottom:0.5%;
+    overflow-y:auto;
+    overflow-x:hidden;
+    background:#EEEEEE;
+}
+
+.main-view{
+	top:70px;
+	position:relative;
+	float:right;
+	width:83.5%;
+	height:98%;
+	margin:0.5%;
+	padding:0.8% 0.8% 0.8% 1.2%;
+
+}
+
+.radio-text{margin:0px 12px 0px 8px;font-size:14px;}
+

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<title>添加单词</title>
+    <link ref="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="/Public/css/bootstrap/icheck/square.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.3.0/css/amazeui.min.css">
+    <link href="/Public/css/bootstrap/sco/sco.message.css" rel="stylesheet">
+    <link href="/Public/css/base.css" rel="stylesheet">
+    <style type="text/css">
+        .main-view-lexi{top:0px;
+                        position:relative;
+                        float:right;
+                        width:83.5%;
+                        margin:0.5%;
+                        padding:0.8% 0.8% 0.8% 1.2%;}
+        .container-fluid .row{margin-top:2%;}
+        .main-view-inner{margin:2% 2% 2% 6%;font-size:14px;width:1000px;}
+        .main-view-inner .key{width:80px;padding:0px;font-weight:bold;}
+        .main-view-inner .value{width:800px;padding-left:0px;}
+        .row-gutter{margin-top:5px;}
+        .btn-submit{width:305px;height:40px;}
+        .btn-class-type{width:185px;}
+        .btn-class-list{width:200px;}
+    </style>
+    
+</head>
+<body class="global">
+
+<div class="main-view-lexi">
+        <label for="top" class="control-label" id="top"></label>
+        <div class="main-view-inner container-fluid">
+            <a href="addWordRoot">添加词根</a>
+            <div class="row"  style="margin-bottom:30px;">
+                <div class="col-md-4 key row-gutter"></div>
+                <div class="col-md-6 value row-gutter"><button type="button" class="btn btn-default btn-submit add-word">保存</button></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 key row-gutter">单词：</div>
+                <div class="col-md-4 value"><input id="word" type="text" style="width:200px;" class="form-control" value="" aria-describedby="basic-addon1"/></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 key row-gutter">解释：</div>
+                <div class="col-md-4 value"><textarea id="meaning" style="width:600px;height:80px;"></textarea></div>
+            </div>
+            <div class="row" style="margin-bottom:30px;">
+                <div class="col-md-4 key row-gutter">词根：</div>
+                <div class="col-md-12 value">
+                    <!-- Modal -->
+                    <div class="">
+                        <div style="margin:1% 0% 0% 0%;font-size:13px;position:fixed;" class="container-fluid">
+                            <div class="row">
+                                    <div><a href="#top" style="margin-right:5px;">TOP</a></div>
+                                    <div><a href="#letter_a" style="margin-right:5px;">A</a></div>
+                                    <div><a href="#letter_b" style="margin-right:5px;">B</a></div>
+                                    <div><a href="#letter_c" style="margin-right:5px;">C</a></div>
+                                    <div><a href="#letter_d" style="margin-right:5px;">D</a></div>
+                                    <div><a href="#letter_e" style="margin-right:5px;">E</a></div>
+                                    <div><a href="#letter_f" style="margin-right:5px;">F</a></div>
+                                    <div><a href="#letter_g" style="margin-right:5px;">G</a></div>
+                                    <div><a href="#letter_h" style="margin-right:5px;">H</a></div>
+                                    <div><a href="#letter_i" style="margin-right:5px;">I</a></div>
+                                    <div><a href="#letter_j" style="margin-right:5px;">J</a></div>
+                                    <div><a href="#letter_k" style="margin-right:5px;">K</a></div>
+                                    <div><a href="#letter_l" style="margin-right:5px;">L</a></div>
+                                    <div><a href="#letter_m" style="margin-right:5px;">M</a></div>
+                                    <div><a href="#letter_n" style="margin-right:5px;">N</a></div>
+                                    <div><a href="#letter_o" style="margin-right:5px;">O</a></div>
+                                    <div><a href="#letter_p" style="margin-right:5px;">P</a></div>
+                                    <div><a href="#letter_q" style="margin-right:5px;">Q</a></div>
+                                    <div><a href="#letter_r" style="margin-right:5px;">R</a></div>
+                                    <div><a href="#letter_s" style="margin-right:5px;">S</a></div>
+                                    <div><a href="#letter_t" style="margin-right:5px;">T</a></div>
+                                    <div><a href="#letter_u" style="margin-right:5px;">U</a></div>
+                                    <div><a href="#letter_v" style="margin-right:5px;">V</a></div>
+                                    <div><a href="#letter_w" style="margin-right:5px;">W</a></div>
+                                    <div><a href="#letter_x" style="margin-right:5px;">X</a></div>
+                                    <div><a href="#letter_y" style="margin-right:5px;">Y</a></div>
+                                    <div><a href="#letter_z" style="margin-right:5px;">Z</a></div>
+                                    <div><a href="#letter_#" style="margin-right:5px;">#</a></div>
+                            </div>
+                        </div>
+                        <div style="display:inline-block;height:400px;width:800px;margin:0px 0px 0px 30px;" class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_a" class="control-label" id="letter_a">A</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                    <if condition="($vo.capital eq a) or ($vo.capital eq A)">
+                                    <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_b" class="control-label" id="letter_b">B</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq b) or ($vo.capital eq B)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_c" class="control-label" id="letter_c">C</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq c) or ($vo.capital eq C)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_d" class="control-label" id="letter_d">D</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq d) or ($vo.capital eq D)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_e" class="control-label" id="letter_e">E</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq e) or ($vo.capital eq E)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_f" class="control-label" id="letter_f">F</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq f) or ($vo.capital eq F)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_g" class="control-label" id="letter_g">G</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq g) or ($vo.capital eq G)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_h" class="control-label" id="letter_h">H</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq h) or ($vo.capital eq H)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_i" class="control-label" id="letter_i">I</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq i) or ($vo.capital eq I)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_j" class="control-label" id="letter_j">J</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq j) or ($vo.capital eq J)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_k" class="control-label" id="letter_k">K</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq k) or ($vo.capital eq K)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_l" class="control-label" id="letter_l">L</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq l) or ($vo.capital eq L)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_m" class="control-label" id="letter_m">M</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq m) or ($vo.capital eq M)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_n" class="control-label" id="letter_n">N</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq n) or ($vo.capital eq N)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_o" class="control-label" id="letter_o">O</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq o) or ($vo.capital eq O)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_p" class="control-label" id="letter_p">P</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq p) or ($vo.capital eq P)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_q" class="control-label" id="letter_q">Q</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq q) or ($vo.capital eq Q)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_r" class="control-label" id="letter_r">R</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq r) or ($vo.capital eq R)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_s" class="control-label" id="letter_s">S</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq s) or ($vo.capital eq S)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_t" class="control-label" id="letter_t">T</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq t) or ($vo.capital eq T)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_u" class="control-label" id="letter_u">U</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq u) or ($vo.capital eq U)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_v" class="control-label" id="letter_v">V</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq v) or ($vo.capital eq V)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_w" class="control-label" id="letter_w">W</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq w) or ($vo.capital eq W)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_x" class="control-label" id="letter_x">X</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq x) or ($vo.capital eq X)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_y" class="control-label" id="letter_y">Y</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq y) or ($vo.capital eq Y)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_z" class="control-label" id="letter_z">Z</label>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <foreach name="wordRootList" item="vo" >
+                                   <if condition="($vo.capital eq z) or ($vo.capital eq Z)">
+                                   <div class="col-md-6">
+                                    <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </if>
+                                </foreach>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="background-color:#4f5555;color:white;margin:5px 0px 5px 0px;">
+                                    <label for="letter_#" class="control-label" id="letter_#">#</label>
+                                </div>
+                            </div> 
+                            <div class="row" style="margin-bottom:50px;">
+                                <foreach name="wordRootList" item="vo" >
+                                   <in name="vo.capital" value="a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z">
+                                    <else/>
+                                        <div class="col-md-6">
+                                        <div class="margin">
+                                        <input tabindex="{$snum}" id="wordRoot_{$snum++}" woodRootname="{$vo.word_root}" type="checkbox" name="wordRoot" value="{$vo.id}"><span class="radio-text"><a href="showWordsByRoot?wordRootId={$vo.id}">{$vo.word_root}</a></span>
+                                    </div>
+                                    </div>
+                                    </in>
+                                </foreach>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+
+    
+
+
+    
+</div>
+
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://7xl53o.com1.z0.glb.clouddn.com/dingdingenglish/js/jquery.icheck.min.js"></script>
+    <script src="/Public/js/bootstrap/sco/sco.message.js"></script>
+    <script src="/Public/js/base.js"></script>
+    <script src="/Public/js/lexi.js"></script>
+    <script>
+        $(document).ready(function(){
+          $('input').iCheck({
+            checkboxClass: 'icheckbox_square',
+            radioClass: 'iradio_square',
+            increaseArea: '20%' // optional
+          });
+          $("#origin_0").iCheck("check");
+          $("#category_0").iCheck("check");
+        });
+    </script>
+</body>
+</html>

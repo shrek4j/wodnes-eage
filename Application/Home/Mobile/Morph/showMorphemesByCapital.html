@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">  
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>词根列表</title>
+    <link ref="shortcut icon" href="/morph_favicon.ico" type="image/x-icon"/>
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="/Public/css/base_morph_mobile.css" rel="stylesheet">
+    <style type="text/css">
+        .main-view-inner{margin:4% 4% 4% 4%;}
+        .main-view-inner-bar{margin:0% 0% 2% 0%;}
+        .word-root-list{margin-top:4%;}
+        .fuzzy-search{margin-top:2%;}
+        #weui-picker-confirm{color:#1875b7;}
+        .weui-picker__item{font-size:18px;}
+    </style>
+    
+</head>
+ <body class="global">   
+ <!-- 导航 -->
+<include file="Public:morphNav" />
+
+<div class="main-view">
+
+    <div class="main-view-inner">
+        <div class="main-view-inner-bar">
+
+            <form action="showMorphemesByCapital" method="post" id="showMorphemesByCapital">
+                <input type="hidden" name="capital" id="capital" value="{$capital}"/>
+            </form>
+            <form action="showWordsByMorpheme" method="post" id="showWordsByMorpheme">
+                <input type="hidden" name="morphemeId" id="morphemeId"/>
+            </form>
+
+            <div class="alphabet-search">
+                <!-- search alphabetically -->
+                <a href="javascript:;" class="weui-btn weui-btn_default" style="font-size:14px;" id="showPicker">选择首字母查询：<span id="capitalLetter">{$capital}</span></a>
+            </div>
+            
+        </div>
+
+        <div class="word-root-list">
+            <notempty name="morphList">
+                <foreach name="morphList" item="morph" >
+                <div class="weui-panel">
+                    <div class="weui-panel__bd">
+                        <div class="weui-media-box weui-media-box_text" onclick="showWords({$morph.id});">
+						
+                            <h4 class="weui-media-box__title">{$num++}.&nbsp;{$morph.word_root}</h4>
+							<ul class="weui-media-box__info">
+								<li class="weui-media-box__info__meta" style="color:#807e7e;">来源：
+									<switch name="morph.origin">
+										<case value="1" break="1">Latin</case>
+										<case value="2" break="2">Greek</case>
+										<default />Unknown
+									</switch>
+								</li>
+							</ul>
+                            <ul class="weui-media-box__info">
+                                <li class="weui-media-box__info__meta" style="color:#807e7e;">释义：{$morph.meaning}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </foreach>
+            <else />
+               <div style="font-size:14px;margin-top:200px;" class="text-center">此字母下没有词根哦~</div>
+            </notempty>
+        </div>
+    </div>
+</div>
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/Public/js/zepto.min.js"></script>
+    <script type="text/javascript" src="/Public/js/weixin/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="/Public/js/weixin/weui.min.js"></script>
+
+	<script type="text/javascript">
+
+        function showWords(morphemeId){
+			$("#morphemeId").val(morphemeId);
+			$("#showWordsByMorpheme").submit();
+		}
+
+		$('.select-capital').change(function(){
+			$("#capital").val($("#selectCapital").find("option:selected").val());
+			$("#showMorphemesByCapital").submit();
+		});
+
+
+        $('#showPicker').on('click', function () {
+            weui.picker([{
+                label: 'a',
+                value: 'a'
+            }, {
+                label: 'b',
+                value: 'b'
+            }, {
+                label: 'c',
+                value: 'c'
+            },{
+                label: 'd',
+                value: 'd'
+            }, {
+                label: 'e',
+                value: 'e'
+            }, {
+                label: 'f',
+                value: 'f'
+            }, {
+                label: 'g',
+                value: 'g'
+            }, {
+                label: 'h',
+                value: 'h'
+            }, {
+                label: 'i',
+                value: 'i'
+            }, {
+                label: 'j',
+                value: 'j'
+            }, {
+                label: 'k',
+                value: 'k'
+            }, {
+                label: 'l',
+                value: 'l'
+            }, {
+                label: 'm',
+                value: 'm'
+            }, {
+                label: 'n',
+                value: 'n'
+            }, {
+                label: 'o',
+                value: 'o'
+            }, {
+                label: 'p',
+                value: 'p'
+            }, {
+                label: 'q',
+                value: 'q'
+            }, {
+                label: 'r',
+                value: 'r'
+            }, {
+                label: 's',
+                value: 's'
+            }, {
+                label: 't',
+                value: 't'
+            }, {
+                label: 'u',
+                value: 'u'
+            }, {
+                label: 'v',
+                value: 'v'
+            }, {
+                label: 'w',
+                value: 'w'
+            }, {
+                label: 'x',
+                value: 'x'
+            }, {
+                label: 'y',
+                value: 'y'
+            }, {
+                label: 'z',
+                value: 'z'
+            }
+
+            ], {
+                onChange: function (result) {
+
+                },
+                onConfirm: function (result) {
+                    $("#capital").val(result);
+                    $("#showMorphemesByCapital").submit();
+                },
+                id: 'singleLinePicker'
+            });
+        });
+		
+    </script>
+</body>
+</html>

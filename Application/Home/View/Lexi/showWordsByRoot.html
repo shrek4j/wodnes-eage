@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link ref="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+
+	<title>单词列表</title>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="/Public/css/bootstrap/sco/sco.message.css" rel="stylesheet">
+    <link href="/Public/css/base.css" rel="stylesheet">
+    <style type="text/css">
+      .main-view-inner{margin:2% 6% 2% 2%;}
+      .main-view-inner-bar{margin:4% 2% 2% 2%;}
+      .main-view-inner-table{margin:6% 2% 2% 2%;}
+      .main-view-inner-table .title{font-weight:bold;font-size:14px;background-color:#1ABC9C;color:white;}
+      .cell-operation-gutter{margin-left:10%}
+      .modal-body .container-fluid .row{margin-top:2%}
+    </style>
+    
+</head>
+<body class="global">
+
+<div class="main-view">
+    <div class="main-view-inner">
+        <div class="main-view-inner-bar">
+        </div>
+                
+        <table class="main-view-inner-table table table-bordered table-striped table-hover text-center">
+            <thead><tr class="title"><td>编号</td><td>单词</td><td>解释</td></tr></thead>
+            <tbody>
+              <foreach name="wordList" item="vo" >
+                <tr>
+                  <td>{$num++}</td>
+                  <td>{$vo.word}</td>
+                  <td>{$vo.meaning}</td>
+                </tr>
+              </foreach>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+  	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+  	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/Public/js/bootstrap/sco/sco.message.js"></script>
+    <script src="/Public/js/lexi.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+    </script>
+</body>
+</html>

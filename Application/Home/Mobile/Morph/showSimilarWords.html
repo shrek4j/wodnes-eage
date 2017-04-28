@@ -29,9 +29,9 @@
 <include file="Public:morphNav" />
 
 <div class="main-view">
-
-    <div id="myChart" style="width: 400px;height:200px;margin:10px 0px 20px 0px"></div>
-
+    <notempty name="wordList">
+        <div id="myChart" style="width: 400px;height:200px;margin:0 auto;"></div>
+    </notempty>
     <div class="word-view">
         <notempty name="wordList">
             <div class="weui-panel weui-panel_access">
@@ -69,47 +69,49 @@
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="/Public/js/echarts/echarts.min.js"></script>
 <script type="text/javascript">
+    <notempty name="wordList">
     // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('myChart'));
+    var myChart = echarts.init(document.getElementById('myChart'));
 
-        // 指定图表的配置项和数据
-        option = {
-            title : {
-                text: '词频占比',
-                textStyle:{fontSize:'16px',fontWeight:'bolder'},
-                x:'left'
-            },
-            tooltip : {
-                trigger: 'item',
-                formatter: "{b} : ({d}%)"
-            },
-            series : [
-                {
-                    name: '词频占比',
-                    type: 'pie',
-                    radius : '55%',
-                    hoverAnimation:false,
-                    stillShowZeroSum:false,
-                    center: ['50%', '70%'],
-                    label:{normal:{textstyle:{fontFamily:'Tahoma'}}},
-                    data:[
-                    <foreach name="wordList" item="word">
-                        {value:{$word.freq}, name:'{$word.word}'},
-                    </foreach>
-                    ],
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
+    // 指定图表的配置项和数据
+    option = {
+        title : {
+            text: '词频占比',
+            textStyle:{fontSize:'16px',fontWeight:'bolder'},
+            x:'left'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{b} : ({d}%)"
+        },
+        series : [
+            {
+                name: '词频占比',
+                type: 'pie',
+                radius : '55%',
+                hoverAnimation:false,
+                stillShowZeroSum:false,
+                center: ['50%', '70%'],
+                label:{normal:{textstyle:{fontFamily:'Tahoma'}}},
+                data:[
+                <foreach name="wordList" item="word">
+                    {value:{$word.freq}, name:'{$word.word}'},
+                </foreach>
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
-            ]
-        };
+            }
+        ]
+    };
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    </notempty>
 </script>
 </body>
 </html>

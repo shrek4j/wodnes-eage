@@ -21,7 +21,8 @@
         .main-view-inner{margin:4% 4% 4% 4%;}
         .main-view-inner-bar{margin:0% 0% 2% 0%;}
         .word-root-list{margin-top:4%;}
-        .fuzzy-search{margin-top:0%;}
+        .fuzzy-search{margin:50% 0px auto 0px;}
+        .fuzzy-search-top{margin-top:0%;}
         #weui-picker-confirm{color:#1875b7;}
         .weui-picker__item{font-size:18px;}
     </style>
@@ -36,7 +37,7 @@
         <input type="hidden" name="morphemeId" id="morphemeId"/>
     </form>
     
-    <div class="fuzzy-search">
+    <div class="fuzzy-search" id="searchBarDiv">
         <!-- fuzzy search -->
         <div class="weui-search-bar" id="searchBar">
             <form class="weui-search-bar__form">
@@ -64,13 +65,13 @@
         </div>
     </div>
 
-    <div style="position:fixed;bottom:20px;width:100%;text-align:center;font-weight:bold;color:#1875b7;">
+    <div style="position:absolute;top:40%;width:100%;text-align:center;font-weight:bold;color:#1875b7;" id="mainLogo">
         <div>
             <img width="18px" height="18px" src="/Public/img/morph_white_s.jpg"/>
-            <span style="font-size:14px;">ODIN'S EYE</span>
+            <span style="font-size:16px;">ODIN'S EYE</span>
         </div>
         <div>
-            <span style="font-size:12px;">奥汀之眼 词根词典</span>
+            <span style="font-size:14px;">奥汀之眼 词根词典</span>
         </div>
     </div>
 </div>
@@ -86,21 +87,32 @@
                 $searchText = $('#searchText'),
                 $searchInput = $('#searchInput'),
                 $searchClear = $('#searchClear'),
-                $searchCancel = $('#searchCancel');
+                $searchCancel = $('#searchCancel'),
+                $searchBarDiv = $('#searchBarDiv'),
+                $mainLogo = $('#mainLogo');
 
             function hideSearchResult(){
                 $searchResult.hide();
                 $searchInput.val('');
+                $searchBarDiv.removeClass('fuzzy-search-top');
+                $searchBarDiv.addClass('fuzzy-search');
+                $mainLogo.show();
             }
             function cancelSearch(){
                 hideSearchResult();
                 $searchBar.removeClass('weui-search-bar_focusing');
                 $searchText.show();
+                $searchBarDiv.removeClass('fuzzy-search-top');
+                $searchBarDiv.addClass('fuzzy-search');
+                $mainLogo.show();
             }
 
             $searchBar.on('click', function(){
+                $searchBarDiv.removeClass('fuzzy-search');
+                $searchBarDiv.addClass('fuzzy-search-top');
                 $searchBar.addClass('weui-search-bar_focusing');
                 $searchInput.focus();
+                $mainLogo.hide();
             });
             $searchInput
                 .on('blur', function () {

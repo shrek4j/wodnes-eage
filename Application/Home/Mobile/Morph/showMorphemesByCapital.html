@@ -57,7 +57,10 @@
                     <div class="weui-panel__bd">
                         <div class="weui-media-box weui-media-box_text" onclick="showWords({$morph.id});">
 						
-                            <h4 class="weui-media-box__title">{$num++}.&nbsp;{$morph.word_root}</h4>
+                            <h4 class="weui-media-box__title">
+                                <span>{$num++}.&nbsp;{$morph.word_root}</span>
+                                <span class="weui-badge" style="margin-left: 5px;background-color:#5091d4;">排名：{$morph.rank}</span>
+                            </h4>
 							<ul class="weui-media-box__info">
 								<li class="weui-media-box__info__meta" style="color:#807e7e;">来源：
 									<switch name="morph.origin">
@@ -68,7 +71,7 @@
 								</li>
 							</ul>
                             <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta" style="color:#807e7e;">释义：{$morph.meaning}</li>
+                                <li class="weui-media-box__info__meta" style="color:#807e7e;">英文释义：{$morph.meaning}</li>
                             </ul>
                         </div>
                     </div>

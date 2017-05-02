@@ -40,8 +40,8 @@
                 <foreach name="wordList" item="word">
                     <div class="weui-media-box weui-media-box_text">
                         <h4 class="weui-media-box__title">
-                            {$num++}.&nbsp;{$word.word}
-                            <span class="weui-badge" style="margin-left: 5px;font-size:8px;background-color:#5091d4;">
+                            <span>{$num++}.&nbsp;{$word.word}</span>
+                            <span class="weui-badge" style="margin-left: 5px;font-size:8px;background-color:#5091d4;">频率：
                                 <switch name="word.freq_level">
                                     <case value="1" break="1">极高</case>
                                     <case value="2" break="2">&nbsp;高&nbsp;</case>
@@ -52,7 +52,7 @@
                                 </switch>
                             </span>
                         </h4>
-                        <p class="weui-media-box__desc">{$word.translation}</p>
+                        <p>{$word.translation}</p>
                     </div>
                 </foreach>
                 </div>
@@ -78,7 +78,8 @@
         title : {
             text: '词频占比',
             textStyle:{fontSize:'16px',fontWeight:'bolder'},
-            x:'left'
+            x:'left',
+            y:'bottom'
         },
         tooltip : {
             trigger: 'item',
@@ -91,7 +92,7 @@
                 radius : '55%',
                 hoverAnimation:false,
                 stillShowZeroSum:false,
-                center: ['50%', '70%'],
+                center: ['50%', '60%'],
                 label:{normal:{textstyle:{fontFamily:'Tahoma'}}},
                 data:[
                 <foreach name="wordList" item="word">

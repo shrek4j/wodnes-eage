@@ -23,7 +23,7 @@ class MorphModel extends Model {
     }
 
     public function showMorphemeByCapital($capital){
-        $sql = "select id,word_root,meaning,origin from wiki_word_root where capital_letter = '%s' order by total_log_freq desc";
+        $sql = "select id,word_root,meaning,origin,rank from wiki_word_root where capital_letter = '%s' order by total_log_freq desc";
 		return $this->query($sql,$capital);
     }
 

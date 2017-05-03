@@ -20,6 +20,7 @@
     <style type="text/css">
         .root-view{margin:2% 2% 2% 4%;font-size: 14px;}
         .word-view{margin:2% 2% 2% 2%;}
+        .fuzzy-search{margin:0px;}
     </style>
     
 </head>
@@ -29,8 +30,40 @@
 <include file="Public:morphNav" />
 
 <div class="main-view">
+    <form action="showWordsByMorpheme" method="post" id="showWordsByMorpheme">
+        <input type="hidden" name="morphemeId" id="morphemeId"/>
+    </form>
+    <div class="fuzzy-search" id="searchBarDiv">
+        <!-- fuzzy search -->
+        <div class="weui-search-bar" id="searchBar">
+            <form class="weui-search-bar__form">
+                <div class="weui-search-bar__box">
+                    <i class="weui-icon-search"></i>
+                    <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索词根" required  />
+                    <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                </div>
+                <label class="weui-search-bar__label" id="searchText">
+                    <i class="weui-icon-search"></i>
+                    <span>搜索词根</span>
+                </label>
+            </form>
+            <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel" style="color:#1875b7;">取消</a>
+        </div>
+        <div class="weui-cells searchbar-result" id="searchResult" style="z-index:1000;margin-top:0px;display:none;width:100%;background-color:#f3f2f2;font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;font-size:14px;">
+            <div class="weui-cell weui-cell_access">
+            <!--
+                <div class="weui-cell__bd weui-cell_primary">
+                    <p>实时搜索文本</p>
+                </div>
+            -->
+            </div>
+            
+        </div>
+    </div>
+
     <div class="root-view">
         <div class="weui_cells_title bold-font">词根：{$morpheme[0].word_root}</div>
+        <div class="weui_cells_title "><span class="bold-font">排名：</span>{$morpheme[0].rank}</div>
         <div class="weui_cells_title ">
             <span class="bold-font">来源：</span>
             <switch name="morpheme[0].origin">
@@ -83,6 +116,100 @@
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var $searchBar = $('#searchBar'),
+                $searchResult = $('#searchResult'),
+                $searchText = $('#searchText'),
+                $searchInput = $('#searchInput'),
+                $searchClear = $('#searchClear'),
+                $searchCancel = $('#searchCancel'),
+                $searchBarDiv = $('#searchBarDiv'),
+                $mainLogo = $('#mainLogo');
 
+            function hideSearchResult(){
+                $searchResult.hide();
+                $searchInput.val('');
+                $mainLogo.show();
+            }
+            function cancelSearch(){
+                hideSearchResult();
+                $searchBar.removeClass('weui-search-bar_focusing');
+                $searchText.show();
+                $mainLogo.show();
+            }
+
+            $searchBar.on('click', function(){
+                $searchBar.addClass('weui-search-bar_focusing');
+                $searchInput.focus();
+                $mainLogo.hide();
+            });
+            $searchInput
+                .on('blur', function () {
+                    if(!this.value.length) cancelSearch();
+                })
+                .on('input', function(){
+                    if(this.value.length > 8){
+                        return;
+                    }
+                    if(this.value.length) {
+                        $.ajax({
+                            type: "POST",
+                            url: "fuzzySearchMorph",
+                            data: "fuzzyMorph="+this.value,
+                            success: function(msg){
+                                if(msg == 'noresult'){
+                                    return;
+                                }
+                                var dataObj = eval("("+msg+")");
+                                var html = '';
+                                $.each(dataObj,function(idx,item){   
+                                    html   +=   '<div class="weui-cell weui-cell_access" onclick="showWords('+item.id+')">'+
+                                                    '<div class="weui-cell__bd weui-cell_primary">'+
+                                                        '<p><span class="bold-font">词根：</span>'+item.word_root +'</p>'+
+                                                        '<p><span class="bold-font">释义：</span>'+item.meaning +'</p>'+
+                                                    '</div>'+
+                                                '</div>';
+                                    
+                                });
+                                $searchResult.show();
+                                $searchResult.css('position','absolute');
+                                $searchResult.empty();
+                                $searchResult.append(html);
+                           }
+                        });
+                    } else {
+                        $searchResult.hide();
+                    }
+                })
+            ;
+            $searchClear.on('click', function(){
+                hideSearchResult();
+                $searchInput.focus();
+            });
+            $searchCancel.on('click', function(){
+                cancelSearch();
+                $searchInput.blur();
+            });
+        });
+
+        function showWords(morphemeId){
+            var $searchBar = $('#searchBar'),
+                $searchResult = $('#searchResult'),
+                $searchText = $('#searchText'),
+                $searchInput = $('#searchInput'),
+                $searchClear = $('#searchClear'),
+                $searchCancel = $('#searchCancel'),
+                $mainLogo = $('#mainLogo');
+
+            $searchResult.hide();
+            $searchInput.val('');
+            $searchBar.removeClass('weui-search-bar_focusing');
+            $searchText.show();
+            $mainLogo.show();
+            $("#morphemeId").val(morphemeId);
+            $("#showWordsByMorpheme").submit();
+        }
+    </script>
 </body>
 </html>

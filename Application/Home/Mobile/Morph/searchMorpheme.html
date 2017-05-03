@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <div style="margin-top:50%;width:100%;text-align:center;font-weight:bold;color:#1875b7;" id="mainLogo">
+    <div style="margin-top:200px;width:100%;text-align:center;font-weight:bold;color:#1875b7;" id="mainLogo">
         <div>
             <img width="18px" height="18px" src="/Public/img/morph_white_s.jpg"/>
             <span style="font-size:16px;">ODIN'S EYE</span>
@@ -161,12 +161,14 @@
                 $searchText = $('#searchText'),
                 $searchInput = $('#searchInput'),
                 $searchClear = $('#searchClear'),
-                $searchCancel = $('#searchCancel');
+                $searchCancel = $('#searchCancel'),
+                $mainLogo = $('#mainLogo');
 
             $searchResult.hide();
             $searchInput.val('');
             $searchBar.removeClass('weui-search-bar_focusing');
             $searchText.show();
+            $mainLogo.show();
             $("#morphemeId").val(morphemeId);
             $("#showWordsByMorpheme").submit();
         }

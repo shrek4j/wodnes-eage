@@ -24,6 +24,7 @@
         .fuzzy-search{margin-top:2%;}
         #weui-picker-confirm{color:#1875b7;}
         .weui-picker__item{font-size:18px;}
+        .alphabet-search-scatter{width:100%;text-align: center;}
     </style>
     
 </head>
@@ -44,16 +45,51 @@
             </form>
 
             <div class="alphabet-search">
-                <!-- search alphabetically -->
-                <a href="javascript:;" class="weui-btn weui-btn_default" style="font-size:14px;" id="showPicker">选择首字母查询：<span id="capitalLetter">{$capital}</span></a>
+                <if condition="$Think.session.isMobile eq 1">
+                    <!-- search alphabetically -->
+                    <a href="javascript:;" class="weui-btn weui-btn_default" style="font-size:14px;" id="showPicker">选择首字母查询：<span id="capitalLetter">{$capital}</span></a>
+                <else/>
+                    <div class="alphabet-search-scatter">
+                        <div style="font-weight:bold;">选择首字母查询：</div>
+                        <div class="button-sp-area">
+                            <a href="showMorphemesByCapital?capital=a" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">a</a>
+                            <a href="showMorphemesByCapital?capital=b" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">b</a>
+                            <a href="showMorphemesByCapital?capital=c" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">c</a>
+                            <a href="showMorphemesByCapital?capital=d" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">d</a>
+                            <a href="showMorphemesByCapital?capital=e" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">e</a>
+                            <a href="showMorphemesByCapital?capital=f" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">f</a>
+                            <a href="showMorphemesByCapital?capital=g" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">g</a>
+                            <a href="showMorphemesByCapital?capital=h" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">h</a>
+                            <a href="showMorphemesByCapital?capital=i" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">i</a>
+                            <a href="showMorphemesByCapital?capital=j" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">j</a>
+                            <a href="showMorphemesByCapital?capital=k" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">k</a>
+                            <a href="showMorphemesByCapital?capital=l" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">l</a>
+                            <a href="showMorphemesByCapital?capital=m" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">m</a>
+                            <a href="showMorphemesByCapital?capital=n" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">n</a>
+                            <a href="showMorphemesByCapital?capital=o" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">o</a>
+                            <a href="showMorphemesByCapital?capital=p" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">p</a>
+                            <a href="showMorphemesByCapital?capital=q" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">q</a>
+                            <a href="showMorphemesByCapital?capital=r" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">r</a>
+                            <a href="showMorphemesByCapital?capital=s" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">s</a>
+                            <a href="showMorphemesByCapital?capital=t" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">t</a>
+                            <a href="showMorphemesByCapital?capital=u" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">u</a>
+                            <a href="showMorphemesByCapital?capital=v" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">v</a>
+                            <a href="showMorphemesByCapital?capital=w" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">w</a>
+                            <a href="showMorphemesByCapital?capital=x" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">x</a>
+                            <a href="showMorphemesByCapital?capital=y" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">y</a>
+                            <a href="showMorphemesByCapital?capital=z" class="weui-btn weui-btn_mini weui-btn_default" style="text-decoration: none;font-size: 16px;">z</a>
+                        </div>
+                    </div>
+                </if>
             </div>
             
+        </div>
         </div>
 
         <div class="word-root-list">
             <notempty name="morphList">
                 <foreach name="morphList" item="morph" >
-                <div class="weui-panel">
+                <div class="weui-panel" style="cursor:pointer">
                     <div class="weui-panel__bd">
                         <div class="weui-media-box weui-media-box_text" onclick="showWords({$morph.id});">
 						
@@ -94,15 +130,18 @@
 
         function showWords(morphemeId){
 			$("#morphemeId").val(morphemeId);
-			$("#showWordsByMorpheme").submit();
+			//$("#showWordsByMorpheme").submit();
+            window.location.href = "showWordsByMorpheme?morphemeId="+morphemeId;
 		}
 
 		$('.select-capital').change(function(){
-			$("#capital").val($("#selectCapital").find("option:selected").val());
-			$("#showMorphemesByCapital").submit();
+            var capital = $("#selectCapital").find("option:selected").val();
+			$("#capital").val(capital);
+			//$("#showMorphemesByCapital").submit();
+            window.location.href = "showMorphemesByCapital?capital="+capital;
 		});
 
-
+        <if condition="$Think.session.isMobile eq 1">
         $('#showPicker').on('click', function () {
             weui.picker([{
                 label: 'a',
@@ -195,7 +234,7 @@
                 id: 'singleLinePicker'
             });
         });
-		
+		</if>
     </script>
 </body>
 </html>

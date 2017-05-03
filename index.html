@@ -45,10 +45,10 @@
         <span class="favico"><img width="40px" height="40px" src="/Public/img/morphlogo.png"/></span>
         <!--<span class="brand">ODIN'S EYE</span>-->
 		<span class="role">
-            <a href="searchMorpheme" style="margin-right:10px;">
+            <a href="Morph/searchMorpheme" style="margin-right:10px;">
                 <span class="glyphicon glyphicon-search" aria-hidden="true" style="margin-right:3px;"></span>搜索
             </a>
-            <a href="showMorphemesByCapital">
+            <a href="Morph/showMorphemesByCapital">
                 <span class="glyphicon glyphicon-align-justify" aria-hidden="true" style="margin-right:3px;"></span>列表
             </a>
         <span>
@@ -68,7 +68,7 @@
 
 
 <div class="main-view">
-    <form action="showWordsByMorpheme" method="post" id="showWordsByMorpheme">
+    <form action="Morph/showWordsByMorpheme" method="post" id="showWordsByMorpheme">
         <input type="hidden" name="morphemeId" id="morphemeId"/>
     </form>
     
@@ -154,7 +154,7 @@
                     if(this.value.length) {
                         $.ajax({
                             type: "POST",
-                            url: "fuzzySearchMorph",
+                            url: "Morph/fuzzySearchMorph",
                             data: "fuzzyMorph="+this.value,
                             success: function(msg){
                                 if(msg == 'noresult'){

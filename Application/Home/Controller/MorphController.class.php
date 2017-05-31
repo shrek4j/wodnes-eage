@@ -41,7 +41,7 @@ class MorphController extends Controller {
 
     public function showWordsByMorphemeJson($morphemeId=1){
         $morph = new \Home\Model\MorphModel();
-        $wordList = $morph->showWordsByMorpheme($morphemeId);
+        $wordList = $morph->showWordsByMorphemeWX($morphemeId);
         $morpheme = $morph->showMorphemeById($morphemeId);
 
         $result = array("wordList"=>$wordList,"num"=>1,"morpheme"=>$morpheme);

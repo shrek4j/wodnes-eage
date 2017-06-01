@@ -12,17 +12,7 @@ class MorphModel extends Model {
         return $this->query($sql,$morphemeId);
     }
 
-    public function showWordsByMorphemeWX($morphemeId){
-        $sql = "SELECT ww.id,ww.word,ww.translation,ww.freq_level FROM wiki_word_root_rela wwrr LEFT JOIN wiki_word ww ON wwrr.word_id=ww.id WHERE wwrr.word_root_id=%d AND ww.has_translation = 1 order by ww.log_freq desc,LENGTH(ww.word) asc,ww.word asc";
-        return $this->query($sql,$morphemeId);
-    }
-
     public function showSimilarWords($wId){
-        $sql = "SELECT ww.word,ww.translation,ww.freq_level,ww.freq FROM wiki_word_rela wwr LEFT JOIN wiki_word ww ON wwr.similar_word_id=ww.id WHERE wwr.word_id=%d order by ww.log_freq desc,LENGTH(ww.word) asc,ww.word asc";
-        return $this->query($sql,$wId);
-    }
-
-    public function showSimilarWordsWX($wId){
         $sql = "SELECT ww.word,ww.translation,ww.freq_level,ww.freq FROM wiki_word_rela wwr LEFT JOIN wiki_word ww ON wwr.similar_word_id=ww.id WHERE wwr.word_id=%d order by ww.log_freq desc,LENGTH(ww.word) asc,ww.word asc";
         return $this->query($sql,$wId);
     }

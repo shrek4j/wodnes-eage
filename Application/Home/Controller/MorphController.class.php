@@ -41,7 +41,7 @@ class MorphController extends Controller {
 
     public function showWordsByMorphemeJson($morphemeId=1){
         $morph = new \Home\Model\MorphModel();
-        $wordList = $morph->showWordsByMorphemeWX($morphemeId);
+        $wordList = $morph->showWordsByMorpheme($morphemeId);
         $morpheme = $morph->showMorphemeById($morphemeId);
 
         $result = array("wordList"=>$wordList,"num"=>1,"morpheme"=>$morpheme);
@@ -60,7 +60,7 @@ class MorphController extends Controller {
 
     public function showSimilarWordsJson($wId=1){
         $morph = new \Home\Model\MorphModel();
-        $wordList = $morph->showSimilarWordsWX($wId);
+        $wordList = $morph->showSimilarWords($wId);
         $result = array("wordList"=>$wordList,"num"=>1);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);

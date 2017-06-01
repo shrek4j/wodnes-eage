@@ -57,4 +57,12 @@ class MorphController extends Controller {
         layout(true);
         $this->display();
     }
+
+    public function showSimilarWordsJson($wId=1){
+        $morph = new \Home\Model\MorphModel();
+        $wordList = $morph->showSimilarWordsWX($wId);
+        $result = array("wordList"=>$wordList,"num"=>1);
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+    }
 }

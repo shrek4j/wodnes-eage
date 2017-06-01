@@ -24,7 +24,7 @@ class MorphController extends Controller {
         }
         $morph = new \Home\Model\MorphModel();
         $morphList = $morph->fuzzySearchMorph($fuzzyMorph);
-        $data = json_encode($morphList,JSON_UNESCAPED_UNICODE);
+        $data = json_encode($morphList);
         $this->ajaxReturn($data);
     }
 

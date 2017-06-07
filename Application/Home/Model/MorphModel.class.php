@@ -18,7 +18,7 @@ class MorphModel extends Model {
     }
 	
 	public function showMorphemeById($morphemeId){
-        $sql = "select id,word_root,meaning,origin,rank from wiki_word_root where id = %d";
+        $sql = "select id,word_root,meaning,origin,rank,audio from wiki_word_root where id = %d";
         return $this->query($sql,$morphemeId);
     }
 

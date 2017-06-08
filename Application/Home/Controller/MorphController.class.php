@@ -13,6 +13,14 @@ class MorphController extends Controller {
         $this->display();
     }
 
+    public function showMorphemesByCapitalJson($capital='a'){
+        $morph = new \Home\Model\MorphModel();
+        $morphList = $morph->showMorphemeByCapital($capital);
+        $result = array("morphList"=>$morphList,"capital"=>$capital);
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+    }
+
     public function fuzzySearchMorph($fuzzyMorph){
         if(strlen($fuzzyMorph)>8){
             $this->ajaxReturn('noresult');
@@ -44,7 +52,7 @@ class MorphController extends Controller {
         $wordList = $morph->showWordsByMorpheme($morphemeId);
         $morpheme = $morph->showMorphemeById($morphemeId);
 
-        $result = array("wordList"=>$wordList,"num"=>1,"morpheme"=>$morpheme);
+        $result = array("wordList"=>$wordList,"morpheme"=>$morpheme);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
     }
@@ -61,7 +69,7 @@ class MorphController extends Controller {
     public function showSimilarWordsJson($wId=1){
         $morph = new \Home\Model\MorphModel();
         $wordList = $morph->showSimilarWords($wId);
-        $result = array("wordList"=>$wordList,"num"=>1);
+        $result = array("wordList"=>$wordList);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
     }

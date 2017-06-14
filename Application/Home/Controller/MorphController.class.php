@@ -22,7 +22,7 @@ class MorphController extends Controller {
     }
 
     public function fuzzySearchMorph($fuzzyMorph){
-        if(strlen($fuzzyMorph)>8){
+        if(strlen($fuzzyMorph)>25){
             $this->ajaxReturn('noresult');
         }
         //做安全校验,防sql注入

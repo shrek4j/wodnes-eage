@@ -31,7 +31,13 @@ class MorphController extends Controller {
             $this->ajaxReturn('noresult');
         }
         $morph = new \Home\Model\MorphModel();
-        $morphList = $morph->fuzzySearchMorph($fuzzyMorph);
+        
+        if(strlen($fuzzyMorph)<3){
+            $morphList = $morph->fuzzySearchMorph($fuzzyMorph);
+        }else{//当q长度大于2时，开始同时搜索单词和词根
+            $morphList = $morph->fuzzySearchMorphAndWord($fuzzyMorph);
+        }
+        
         $data = json_encode($morphList);
         $this->ajaxReturn($data);
     }

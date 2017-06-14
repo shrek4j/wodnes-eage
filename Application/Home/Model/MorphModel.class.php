@@ -33,7 +33,7 @@ class MorphModel extends Model {
     }
 
     public function fuzzySearchMorphAndWord($fuzzyMorph){
-        $sql = "SELECT id,word_root,meaning,origin FROM wiki_word_root WHERE (word_root LIKE '".$fuzzyMorph."%' OR word_root LIKE '%,".$fuzzyMorph."%') LIMIT 5 UNION ALL SELECT wwr.id,wwr.word_root,wwr.meaning,origin FROM wiki_word ww LEFT JOIN wiki_word_root_rela wwrr ON ww.id = wwrr.word_id LEFT JOIN wiki_word_root wwr ON wwrr.word_root_id=wwr.id WHERE ww.word = '".$fuzzyMorph."' LIMIT 5";
+        $sql = "SELECT id,word_root,meaning,origin FROM wiki_word_root WHERE (word_root LIKE '".$fuzzyMorph."%' OR word_root LIKE '%,".$fuzzyMorph."%') LIMIT 5 UNION SELECT wwr.id,wwr.word_root,wwr.meaning,origin FROM wiki_word ww LEFT JOIN wiki_word_root_rela wwrr ON ww.id = wwrr.word_id LEFT JOIN wiki_word_root wwr ON wwrr.word_root_id=wwr.id WHERE ww.word = '".$fuzzyMorph."' LIMIT 5";
         return $this->query($sql);
     }
 }

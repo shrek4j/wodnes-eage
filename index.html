@@ -225,8 +225,9 @@
             $searchBar.removeClass('weui-search-bar_focusing');
             $searchText.show();
             $mainLogo.show();
-            $("#morphemeId").val(morphemeId);
-            $("#showWordsByMorpheme").submit();
+            //$("#morphemeId").val(morphemeId);
+            //$("#showWordsByMorpheme").submit();
+            window.location.href = "showWordsByMorpheme?morphemeId="+morphemeId;
         }
     </script>
 </body>

@@ -16,12 +16,17 @@ class MorphController extends Controller {
     public function showMorphemesByCapitalJson($capital='a'){
         $morph = new \Home\Model\MorphModel();
         
-        if($capital == 'all'){
-            $morphList = $morph->showAllMorphemes();
+        if($capital == '100'){
+            $morphList = $morph->showAllMorphemes(0,100);
+            $showType = "1";
+        }else if($capital == '200'){
+            $morphList = $morph->showAllMorphemes(100,200);
+            $showType = "2";
         }else{
             $morphList = $morph->showMorphemeByCapital($capital);
+            $showType = "0";
         }
-        $result = array("morphList"=>$morphList,"capital"=>$capital);
+        $result = array("morphList"=>$morphList,"capital"=>$capital,"showType"=>$showType);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
     }

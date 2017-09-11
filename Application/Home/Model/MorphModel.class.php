@@ -27,8 +27,8 @@ class MorphModel extends Model {
 		return $this->query($sql,$capital);
     }
 
-    public function showAllMorphemes(start,num){
-        $sql = "select id,word_root,meaning,origin,rank from wiki_word_root order by rank asc limit ".start.",".num;
+    public function showAllMorphemes($start,$num){
+        $sql = "select id,word_root,meaning,origin,rank from wiki_word_root order by rank asc limit ".$start.",".$num;
         return $this->query($sql,$capital);
     }
 

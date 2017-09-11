@@ -22,6 +22,9 @@ class MorphController extends Controller {
         }else if(strval($capital) == '200'){
             $morphList = $morph->showAllMorphemes(100,200);
             $showType = "2";
+        }else if(strval($capital) == '300'){
+            $morphList = $morph->showAllMorphemes(200,300);
+            $showType = "3";
         }else{
             $morphList = $morph->showMorphemeByCapital($capital);
             $showType = "0";

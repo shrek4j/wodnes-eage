@@ -15,7 +15,12 @@ class MorphController extends Controller {
 
     public function showMorphemesByCapitalJson($capital='a'){
         $morph = new \Home\Model\MorphModel();
-        $morphList = $morph->showMorphemeByCapital($capital);
+        
+        if($capital == 'all'){
+            $morphList = $morph->showAllMorphemes();
+        }else{
+            $morphList = $morph->showMorphemeByCapital($capital);
+        }
         $result = array("morphList"=>$morphList,"capital"=>$capital);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);

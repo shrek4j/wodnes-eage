@@ -27,6 +27,11 @@ class MorphModel extends Model {
 		return $this->query($sql,$capital);
     }
 
+    public function showAllMorphemes(){
+        $sql = "select id,word_root,meaning,origin,rank from wiki_word_root order by rank asc limit 0,100";
+        return $this->query($sql,$capital);
+    }
+
     public function fuzzySearchMorph($fuzzyMorph){
         $sql = "select id,word_root,meaning,origin from wiki_word_root where (word_root like '".$fuzzyMorph."%' or word_root like '%,".$fuzzyMorph."%') limit 5";
         return $this->query($sql);

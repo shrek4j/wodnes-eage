@@ -16,10 +16,10 @@ class MorphController extends Controller {
     public function showMorphemesByCapitalJson($capital='a'){
         $morph = new \Home\Model\MorphModel();
         
-        if($capital == '100'){
+        if(strval($capital) == '100'){
             $morphList = $morph->showAllMorphemes(0,100);
             $showType = "1";
-        }else if($capital == '200'){
+        }else if(strval($capital) == '200'){
             $morphList = $morph->showAllMorphemes(100,200);
             $showType = "2";
         }else{

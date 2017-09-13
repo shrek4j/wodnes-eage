@@ -2,10 +2,11 @@
 namespace Home\Controller;
 use Think\Controller;
 class LoginController extends Controller {
-    $APPID = "wx4ffd6dcb1f7a62c4";
-    $SECRET = "3c53ecb5f0b6a6517ad9224a22db32d3";
+    
 
     public function onLogin($code){  
+        $APPID = "wx4ffd6dcb1f7a62c4";
+        $SECRET = "3c53ecb5f0b6a6517ad9224a22db32d3";
         $wxurl = "https://api.weixin.qq.com/sns/jscode2session?appid=".$APPID."&secret=".$SECRET."&js_code=".$code."&grant_type=authorization_code";
 
         // 初始化一个 cURL 对象 

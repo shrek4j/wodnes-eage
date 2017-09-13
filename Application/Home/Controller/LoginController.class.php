@@ -33,7 +33,7 @@ class LoginController extends Controller {
         }
         $userId = $user[0]['id'];
 
-        $result = array("userId"=>$userId);
+        $result = array("sfz"=>$userId);
         $data = json_encode($result);
         $this->ajaxReturn($data);
     }

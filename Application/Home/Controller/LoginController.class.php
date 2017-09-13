@@ -24,7 +24,7 @@ class LoginController extends Controller {
         curl_close($curl);
 
         $wxdataRslt = json_decode($wxdata);
-        $openid = $wxdataRslt->"openid";
+        $openid = $wxdataRslt->openid;
         $userModel = new \Home\Model\UserModel();
         $user = $userModel->checkIfUserExist($openid);
         if(count($user) <= 0){

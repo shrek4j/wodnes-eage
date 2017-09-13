@@ -23,7 +23,17 @@ class LoginController extends Controller {
         // 关闭URL请求 
         curl_close($curl);
 
-        $result = array("wxdata"=>$wxdata);
+        $wxdataRslt = json_decode($wxdata);
+        $openid = $wxdataRslt->"openid";
+        $userModel = new \Home\Model\UserModel();
+        $user = $userModel->checkIfUserExist($openid);
+        if(count($user) <= 0){
+            $userModel = new \Home\Model\UserModel();
+            $user = $userModel->addUser($openid);
+        }
+        $userId = $user[0]['id'];
+
+        $result = array("wxdata"=>$wxdata,"userId"=>$userId);
         $data = json_encode($result);
         $this->ajaxReturn($data);
     }

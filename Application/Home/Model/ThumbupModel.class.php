@@ -16,12 +16,12 @@ class ThumbupModel extends Model {
     }
 	
 	public function addThumbupArticle($articleId){
-        $sql = "insert into thumbup_article(articleId,show_count,real_count) values(%d,1,1)";
+        $sql = "insert into thumbup_article(article_id,show_count,real_count) values(%d,1,1)";
         $this->execute($sql,$articleId);
     }
 
     public function addThumbupArticleUserRela($articleId,$userId){
-        $sql = "insert into thumbup_article_user_rela(articleId,user_id) values(%d,%d)";
+        $sql = "insert into thumbup_article_user_rela(article_id,user_id) values(%d,%d)";
         $this->execute($sql,$articleId,$userId);
     }
 

@@ -16,7 +16,7 @@ class ThumbupController extends Controller {
         }
 
         if(count($thumbupCount) < 1){
-            $showCount = 0
+            $showCount = 0;
         }else{
             $showCount = $thumbupCount[0]['show_count'];
         }
@@ -27,43 +27,32 @@ class ThumbupController extends Controller {
     }
 
     public function addThumbup($articleId,$userId){
-        try{
+        $num = 1;//数量增加1
+        $thumbupModel = new \Home\Model\ThumbupModel();
 
-            $num = 1;//数量增加1
-            $thumbupModel = new \Home\Model\ThumbupModel();
-
-            $thumbupModel->addThumbupArticleUserRela($articleId,$userId);
-            $thumbupCount = $thumbupModel->showThumbups($articleId);
-            if(count($thumbupCount) < 1){
-                $thumbupModel->addThumbupArticle($articleId);
-            }else{
-                $thumbupModel->updateThumbupArticle($articleId,$num);
-            }
-            $result = array("result"=>"success");
-        }catch(Exception $e){
-            $result = array("result"=>"failure");
-        }finally{
-            $data = json_encode($result);
-            $this->ajaxReturn($data);
+        $thumbupModel->addThumbupArticleUserRela($articleId,$userId);
+        $thumbupCount = $thumbupModel->showThumbups($articleId);
+        if(count($thumbupCount) < 1){
+            $thumbupModel->addThumbupArticle($articleId);
+        }else{
+            $thumbupModel->updateThumbupArticle($articleId,$num);
         }
+        $result = array("result"=>"success");
+        $data = json_encode($result);
+        $this->ajaxReturn($data);
     }
 
     public function deleteThumbup($articleId,$userId){
-        try{
-            $num = -1;//数量增加1
-            $thumbupModel = new \Home\Model\ThumbupModel();
+        $num = -1;//数量增加1
+        $thumbupModel = new \Home\Model\ThumbupModel();
 
-            $thumbupModel->delThumbupArticleUserRela($articleId,$userId);
-            $thumbupCount = $thumbupModel->showThumbups($articleId);
-            if(count($thumbupCount) > 0){
-                $thumbupModel->updateThumbupArticle($articleId,$num);
-            }
-            $result = array("result"=>"success");
-        }catch(Exception $e){
-            $result = array("result"=>"failure");
-        }finally{
-            $data = json_encode($result);
-            $this->ajaxReturn($data);
+        $thumbupModel->delThumbupArticleUserRela($articleId,$userId);
+        $thumbupCount = $thumbupModel->showThumbups($articleId);
+        if(count($thumbupCount) > 0){
+            $thumbupModel->updateThumbupArticle($articleId,$num);
         }
+        $result = array("result"=>"success");
+        $data = json_encode($result);
+        $this->ajaxReturn($data);
     }
 }

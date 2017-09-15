@@ -42,7 +42,7 @@ class CollectRootController extends Controller {
         $this->ajaxReturn($data);
     }
 
-    public function deleteCollect($rootId,$userId){
+    public function deleteCollectRoot($rootId,$userId){
         $num = -1;//数量增加1
         $collectRootModel = new \Home\Model\CollectRootModel();
 

@@ -6,7 +6,7 @@ class MusicModel extends Model {
     protected $autoCheckFields =false;//模型和数据表无需一一对应
 
     public function getMusicUrl(){
-        $sql = "SELECT url from music_list where is_use=1 limit 0,1";
+        $sql = "SELECT url,wanna_say from music_list where is_use=1 limit 0,1";
         return $this->query($sql);
     }
 	

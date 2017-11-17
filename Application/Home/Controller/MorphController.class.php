@@ -20,10 +20,10 @@ class MorphController extends Controller {
             $morphList = $morph->showAllMorphemes(0,100);
             $showType = "1";
         }else if(strval($capital) == '200'){
-            $morphList = $morph->showAllMorphemes(100,200);
+            $morphList = $morph->showAllMorphemes(100,100);
             $showType = "2";
         }else if(strval($capital) == '300'){
-            $morphList = $morph->showAllMorphemes(200,300);
+            $morphList = $morph->showAllMorphemes(200,100);
             $showType = "3";
         }else{
             $morphList = $morph->showMorphemeByCapital($capital);

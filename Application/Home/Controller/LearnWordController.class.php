@@ -11,15 +11,15 @@ class LearnWordController extends Controller {
 	public function showTaskInfo($userId,$group=1){
 		$learnWordModel = new \Home\Model\LearnWordModel();
 		//获取学习数据
-		$totalCount = countAllWordsToLearn($learnWordModel,$group);
-		$learntCount = countLearnt($learnWordModel,$userId,$group);
+		$totalCount = $this->countAllWordsToLearn($learnWordModel,$group);
+		$learntCount = $this->countLearnt($learnWordModel,$userId,$group);
 		$unlearntCount = $totalCount - $learntCount;
-		$additionDay = $unlearntCount % $portionPerDay == 0 ? 0 : 1;
-		$durationDay = (($totalCount - $learntCount)/$portionPerDay) + $additionDay;
+		$additionDay = $unlearntCount % $this->portionPerDay == 0 ? 0 : 1;
+		$durationDay = (($totalCount - $learntCount)/$this->portionPerDay) + $additionDay;
 		//获取学习进度
 		$progress = $learnWordModel->checkUserLearnProgress($userId,$group);
 
-		$result = array("progress"=>$progress,"totalCount"=>$totalCount,"learntCount"=>$learntCount,"portionPerDay"=>$portionPerDay,"durationDay"=>$durationDay);
+		$result = array("progress"=>$progress,"totalCount"=>$totalCount,"learntCount"=>$learntCount,"portionPerDay"=>$this->portionPerDay,"durationDay"=>$durationDay);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
 	}
@@ -58,7 +58,7 @@ class LearnWordController extends Controller {
 			//今天学了多少单词
 			$countToday = $learnWordModel->countTodayLearnt($userId,$today);
 			$todayLearntCount = $countToday[0]['countToday'];
-			$result = array("isFinished"=>"false","nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionPerDay"=>$portionPerDay);
+			$result = array("isFinished"=>"false","nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionPerDay"=>$this->portionPerDay);
 		}else{//学习完成
 			$learnWordModel->setUserLearnProgressFinished($today,$userId,$group);
 			//TODO 显示学习成果，分享给大家

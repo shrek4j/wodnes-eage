@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class LearnWordController extends Controller {
 
-	private $portionPerDay = 20;//每天学习单词数量
+    private $portionPerDay = 20;//每天学习单词数量
 
 	/**
 	*展示每天的学习进度
@@ -14,7 +14,7 @@ class LearnWordController extends Controller {
 		$totalCount = countAllWordsToLearn($learnWordModel,$group);
 		$learntCount = countLearnt($learnWordModel,$userId,$group);
 		$unlearntCount = $totalCount - $learntCount;
-		$additionDay = $unlearntCount%$portionPerDay == 0 ? 0 : 1;
+		$additionDay = $unlearntCount % $portionPerDay == 0 ? 0 : 1;
 		$durationDay = (($totalCount - $learntCount)/$portionPerDay) + $additionDay;
 		//获取学习进度
 		$progress = $learnWordModel->checkUserLearnProgress($userId,$group);
@@ -45,7 +45,7 @@ class LearnWordController extends Controller {
 		}else if($progress == "next"){
 			$learnWordModel->saveLearnStatus($wordId,$userId,$status,$today);
 			//TODO 如果是未掌握，加入到复习清单中
-		}else($progress == "resume"){
+		}else if($progress == "resume"){
 			//do nothing
 		}
 

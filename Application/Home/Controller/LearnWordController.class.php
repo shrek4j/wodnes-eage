@@ -12,7 +12,13 @@ class LearnWordController extends Controller {
 		$learnWordModel = new \Home\Model\LearnWordModel();
 		//获取学习数据
 		$totalCount = $this->countAllWordsToLearn($learnWordModel,$group);
+		if($totalCount == null){
+			$totalCount = 0;
+		}
 		$learntCount = $this->countLearnt($learnWordModel,$userId,$group);
+		if($learntCount == null){
+			$learntCount = 0;
+		}
 		$unlearntCount = $totalCount - $learntCount;
 		$durationDay = ceil(($totalCount - $learntCount)/$this->portionPerDay);
 		//获取学习进度

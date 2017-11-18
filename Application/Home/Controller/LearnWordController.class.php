@@ -20,7 +20,8 @@ class LearnWordController extends Controller {
 			$learntCount = 0;
 		}
 		$unlearntCount = $totalCount - $learntCount;
-		$durationDay = ceil(($totalCount - $learntCount)/$this->portionPerDay);
+		$portionToday = $unlearntCount > $portionPerDay ? $portionPerDay : $unlearntCount;
+		$durationDay = ceil($unlearntCount/$this->portionPerDay);
 		//获取学习进度
 		$progress = $learnWordModel->checkUserLearnProgress($userId,$group);
 		$today=date('Y-m-d');
@@ -29,7 +30,7 @@ class LearnWordController extends Controller {
 		if($todayLearntCount == null){
 			$todayLearntCount = 0;
 		}
-		$result = array("group"=>$group,"progress"=>$progress,"totalCount"=>$totalCount,"learntCount"=>$learntCount,"portionPerDay"=>$this->portionPerDay,"durationDay"=>$durationDay,"todayLearntCount"=>$todayLearntCount);
+		$result = array("group"=>$group,"progress"=>$progress,"totalCount"=>$totalCount,"learntCount"=>$learntCount,"portionPerDay"=>$this->portionPerDay,"durationDay"=>$durationDay,"todayLearntCount"=>$todayLearntCount,"portionToday"=>$portionToday);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
 	}

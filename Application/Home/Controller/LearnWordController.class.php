@@ -26,6 +26,9 @@ class LearnWordController extends Controller {
 		$today=date('Y-m-d');
 		$countToday = $learnWordModel->countTodayLearnt($userId,$today);
 		$todayLearntCount = $countToday[0]['countToday'];
+		if($todayLearntCount == null){
+			$todayLearntCount = 0;
+		}
 		$result = array("group"=>$group,"progress"=>$progress,"totalCount"=>$totalCount,"learntCount"=>$learntCount,"portionPerDay"=>$this->portionPerDay,"durationDay"=>$durationDay,"todayLearntCount"=>$todayLearntCount);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);

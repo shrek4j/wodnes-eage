@@ -69,6 +69,9 @@ class LearnWordController extends Controller {
 			//今天学了多少单词
 			$countToday = $learnWordModel->countTodayLearnt($userId,$today);
 			$todayLearntCount = $countToday[0]['countToday'];
+			if($todayLearntCount == null){
+				$todayLearntCount = 0;
+			}
 			$result = array("isFinished"=>"false","nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionPerDay"=>$this->portionPerDay);
 		}else{//学习完成
 			$learnWordModel->setUserLearnProgressFinished($today,$userId,$group);

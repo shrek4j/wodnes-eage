@@ -36,7 +36,7 @@ class LearnWordModel extends Model {
         		LEFT JOIN wiki_word wr ON wwrr.word_id=wr.id 
         		WHERE wr.learn_flag=1 
         		AND `group`=%d
-        		AND wr.word_id NOT IN (SELECT DISTINCT word_id FROM user_wiki_word_learn WHERE user_id=%d AND `group`=%d)
+        		AND wr.id NOT IN (SELECT DISTINCT word_id FROM user_wiki_word_learn WHERE user_id=%d AND `group`=%d)
         		ORDER BY wwrlt.id ASC,wr.id ASC 
         		LIMIT 1";
         return $this->query($sql,$group,$userId,$group);		

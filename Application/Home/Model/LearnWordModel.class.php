@@ -17,8 +17,9 @@ class LearnWordModel extends Model {
 
     public function countLearnt($userId,$group){
     	$sql = "SELECT COUNT(uwwl.id) count_learnt 
-    			FROM user_wiki_word_learn uwwl 
-				LEFT JOIN wiki_word_root_learn_template wwrlt ON uwwl.word_root_id=wwrlt.word_root_id
+                FROM user_wiki_word_learn uwwl 
+                LEFT JOIN wiki_word_root_rela wwrr ON uwwl.word_id=wwrr.word_id
+                LEFT JOIN wiki_word_root_learn_template wwrlt ON wwrr.word_root_id=wwrlt.word_root_id
 				WHERE uwwl.user_id =%d 
 				AND wwrlt.`group`=%d";
         return $this->query($sql,$userId,$group);

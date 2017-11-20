@@ -43,7 +43,7 @@ class LearnWordModel extends Model {
     }
 
     public function getRootInfo($wordId){
-    	$sql = "SELECT wwr.* FROM wiki_word_root_rela wwrr 
+    	$sql = "SELECT wwr.*,wwrr.true_root FROM wiki_word_root_rela wwrr 
 				LEFT JOIN wiki_word_root wwr ON wwrr.word_root_id=wwr.id
 				WHERE wwrr.word_id=%d order by wwr.morpheme_type desc";
 		return $this->query($sql,$wordId);

@@ -72,7 +72,8 @@ class LearnWordController extends Controller {
 			if($todayLearntCount == null){
 				$todayLearntCount = 0;
 			}
-			$result = array("isFinished"=>"false","nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionPerDay"=>$this->portionPerDay);
+			$percent = round($todayLearntCount*100/$this->portionPerDay)
+			$result = array("isFinished"=>"false","group"=>$group,"nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionPerDay"=>$this->portionPerDay,"percent"=>$percent);
 		}else{//学习完成
 			$learnWordModel->setUserLearnProgressFinished($today,$userId,$group);
 			//TODO 显示学习成果，分享给大家

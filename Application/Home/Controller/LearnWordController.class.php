@@ -26,7 +26,7 @@ class LearnWordController extends Controller {
 		$progress = $learnWordModel->checkUserLearnProgress($userId,$group);
 		$today=date('Y-m-d');
 		$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
-		$todayLearntCount = $countToday[0]['countToday'];
+		$todayLearntCount = $countToday[0]['count_today'];
 		if($todayLearntCount == null){
 			$todayLearntCount = 0;
 		}
@@ -71,7 +71,7 @@ class LearnWordController extends Controller {
 			$roots = $learnWordModel->getRootInfo($nextWordId);
 			//今天学了多少单词
 			$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
-			$todayLearntCount = $countToday[0]['countToday'];
+			$todayLearntCount = $countToday[0]['count_today'];
 			if($todayLearntCount == null){
 				$todayLearntCount = 0;
 			}

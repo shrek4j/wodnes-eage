@@ -60,10 +60,10 @@ class LearnWordModel extends Model {
     }
 
     public function countTodayLearnt($userId,$today,$group){
-    	$sql = "SELECT COUNT(uwwl.id) countToday 
+    	$sql = "SELECT COUNT(uwwl.id) count_today 
     			FROM user_wiki_word_learn uwwl 
-                LEFT JOIN wiki_word_root_rela wwrr ON uwwl.word_id=wwrr.word_id
-                LEFT JOIN wiki_word_root_learn_template wwrlt ON wwrr.word_root_id=wwrlt.word_root_id
+                LEFT JOIN wiki_word_root_rela wwrr ON uwwl.word_id=wwrr.word_id 
+                LEFT JOIN wiki_word_root_learn_template wwrlt ON wwrr.word_root_id=wwrlt.word_root_id 
     	 		WHERE uwwl.user_id=%d AND uwwl.learn_date='%s' AND wwrlt.`group`=%d";
     	return $this->query($sql,$userId,$today,$group);
     }

@@ -70,7 +70,7 @@ class LearnWordController extends Controller {
 			$nextWordId = $nextWord[0]['id'];
 			$roots = $learnWordModel->getRootInfo($nextWordId);
 			//今天学了多少单词
-			$countToday = $learnWordModel->countTodayLearnt($userId,$today);
+			$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
 			$todayLearntCount = $countToday[0]['countToday'];
 			if($todayLearntCount == null){
 				$todayLearntCount = 0;

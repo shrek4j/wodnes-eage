@@ -25,7 +25,7 @@ class LearnWordController extends Controller {
 		//获取学习进度
 		$progress = $learnWordModel->checkUserLearnProgress($userId,$group);
 		$today=date('Y-m-d');
-		$countToday = $learnWordModel->countTodayLearnt($userId,$today);
+		$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
 		$todayLearntCount = $countToday[0]['countToday'];
 		if($todayLearntCount == null){
 			$todayLearntCount = 0;

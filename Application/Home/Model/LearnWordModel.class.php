@@ -59,13 +59,13 @@ class LearnWordModel extends Model {
     	return $this->execute($sql,$finishDate,$userId,$group);
     }
 
-    public function countTodayLearnt($userId,$today){
+    public function countTodayLearnt($userId,$today,$group){
     	$sql = "SELECT COUNT(uwwl.id) countToday 
     			FROM user_wiki_word_learn uwwl 
                 LEFT JOIN wiki_word_root_rela wwrr ON uwwl.word_id=wwrr.word_id
                 LEFT JOIN wiki_word_root_learn_template wwrlt ON wwrr.word_root_id=wwrlt.word_root_id
     	 		WHERE user_id=%d AND learn_date='%s' AND wwrlt.`group`=%d";
-    	return $this->query($sql,$userId,$today);
+    	return $this->query($sql,$userId,$today,$group);
     }
 
     public function checkUserLearnProgress($userId,$group){

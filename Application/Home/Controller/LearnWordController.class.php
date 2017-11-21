@@ -55,7 +55,7 @@ class LearnWordController extends Controller {
 		if($progress == "start"){
 			$learnWordModel->addUserLearnProgress($userId,$group,$today);
 		}else if($progress == "next"){
-			if(!empty($wordId) && !empty($status)){
+			if($wordId != null && $wordId != 0 && $status != null){
 				$learnWordModel->saveLearnStatus($wordId,$userId,$status,$today);
 			}
 			//TODO 如果是未掌握，加入到复习清单中

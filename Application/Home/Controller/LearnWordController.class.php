@@ -41,7 +41,8 @@ class LearnWordController extends Controller {
 	}
 
 	public function countLearnt($learnWordModel,$userId,$group=1){
-		$totalCount = $learnWordModel->countLearnt($userId,$group);
+		$learntCount = $learnWordModel->countLearnt($userId,$group);
+		return $learntCount[0]['count_learnt']; 
 	}
 
 	/**
@@ -54,7 +55,9 @@ class LearnWordController extends Controller {
 		if($progress == "start"){
 			$learnWordModel->addUserLearnProgress($userId,$group,$today);
 		}else if($progress == "next"){
-			$learnWordModel->saveLearnStatus($wordId,$userId,$status,$today);
+			if(!empty($wordId) && !empty($status)){
+				$learnWordModel->saveLearnStatus($wordId,$userId,$status,$today);
+			}
 			//TODO 如果是未掌握，加入到复习清单中
 		}else if($progress == "resume"){
 			//do nothing

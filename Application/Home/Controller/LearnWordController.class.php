@@ -66,17 +66,22 @@ class LearnWordController extends Controller {
 		//尝试获取新单词
 		$nextWord = $learnWordModel->getNextWord($userId,$group);
 		if(!empty($nextWord)){
-			//下个单词信息
-			$nextWordId = $nextWord[0]['id'];
-			$roots = $learnWordModel->getRootInfo($nextWordId);
+			
 			//今天学了多少单词
 			$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
 			$todayLearntCount = $countToday[0]['count_today'];
 			if($todayLearntCount == null){
 				$todayLearntCount = 0;
 			}
-			$percent = round($todayLearntCount*100/$this->portionPerDay);
-			$result = array("isFinished"=>"false","group"=>$group,"nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionPerDay"=>$this->portionPerDay,"percent"=>$percent);
+			if($todayLearntCount == $this->$portionPerDay){//完成了今天的
+				$result = array("isFinished"=>"todayTrue");
+			}else{//下个单词信息
+				$nextWordId = $nextWord[0]['id'];
+				$roots = $learnWordModel->getRootInfo($nextWordId);
+				$percent = round($todayLearntCount*100/$this->portionPerDay);
+				$result = array("isFinished"=>"false","group"=>$group,"nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionPerDay"=>$this->portionPerDay,"percent"=>$percent);
+			}
+
 		}else{//学习完成
 			$learnWordModel->setUserLearnProgressFinished($today,$userId,$group);
 			//TODO 显示学习成果，分享给大家

@@ -18,16 +18,14 @@ class LearnWordModel extends Model {
     public function countLearnt($userId,$group){
     	$sql = "SELECT COUNT(uwwl.id) count_learnt 
                 FROM user_wiki_word_learn uwwl 
-                LEFT JOIN wiki_word_root_rela wwrr ON uwwl.word_id=wwrr.word_id
-                LEFT JOIN wiki_word_root_learn_template wwrlt ON wwrr.word_root_id=wwrlt.word_root_id
 				WHERE uwwl.user_id =%d 
-				AND wwrlt.`group`=%d";
+				AND uwwl.`group`=%d";
         return $this->query($sql,$userId,$group);
     }
 
-    public function saveLearnStatus($wordId,$userId,$learnStatus,$learnDate){
-    	$sql = "INSERT INTO user_wiki_word_learn(word_id,user_id,learn_status,learn_date) VALUES(%d,%d,%d,'%s')";
-    	$this->execute($sql,$wordId,$userId,$learnStatus,$learnDate);
+    public function saveLearnStatus($wordId,$userId,$learnStatus,$learnDate,$group){
+    	$sql = "INSERT INTO user_wiki_word_learn(word_id,user_id,learn_status,learn_date,`group`) VALUES(%d,%d,%d,'%s',%d)";
+    	$this->execute($sql,$wordId,$userId,$learnStatus,$learnDate,$group);
     }
 
     public function getNextWord($userId,$group){
@@ -62,9 +60,7 @@ class LearnWordModel extends Model {
     public function countTodayLearnt($userId,$today,$group){
     	$sql = "SELECT COUNT(uwwl.id) count_today 
     			FROM user_wiki_word_learn uwwl 
-                LEFT JOIN wiki_word_root_rela wwrr ON uwwl.word_id=wwrr.word_id 
-                LEFT JOIN wiki_word_root_learn_template wwrlt ON wwrr.word_root_id=wwrlt.word_root_id 
-    	 		WHERE uwwl.user_id=%d AND uwwl.learn_date='%s' AND wwrlt.`group`=%d";
+    	 		WHERE uwwl.user_id=%d AND uwwl.learn_date='%s' AND uwwl.`group`=%d";
     	return $this->query($sql,$userId,$today,$group);
     }
 

@@ -57,7 +57,7 @@ class LearnWordController extends Controller {
 			$learnWordModel->addUserLearnCrazy($userId,$group,$today,0);
 		}else if($progress == "next"){//每次选择下一个单词时
 			if($wordId != null && $wordId != 0 && $status != null){
-				$learnWordModel->saveLearnStatus($wordId,$userId,$status,$today);
+				$learnWordModel->saveLearnStatus($wordId,$userId,$status,$today,$group);
 			}
 			//TODO 如果是未掌握，加入到复习清单中
 		}else if($progress == "resume"){//每次退出后，再进入，点击继续学习时

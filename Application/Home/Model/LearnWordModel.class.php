@@ -72,4 +72,19 @@ class LearnWordModel extends Model {
     	$sql = "SELECT is_finished,start_date,finish_date FROM user_wiki_word_learn_progress WHERE user_id=%d AND `group`=%d";
     	return $this->query($sql,$userId,$group);
     }
+
+    public function checkUserLearnCrazy($userId,$group,$today){
+    	$sql = "SELECT is_crazy FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d AND learn_date='%s'";
+    	return $this->query($sql,$userId,$group,$today);
+    }
+
+    public function addUserLearnCrazy($userId,$group,$today,$isCrazy){
+    	$sql = "INSERT INTO user_wiki_word_learn_crazy (user_id,`group`,learn_date,is_crazy) VALUES(%d,%d,'%s',%d)";
+    	return $this->execute($sql,$userId,$group,$today,$isCrazy);
+    }
+
+    public function setUserLearnCrazy($isCrazy,$userId,$group,$today){
+    	$sql = "UPDATE user_wiki_word_learn_crazy SET is_crazy=%d WHERE user_id=%d AND `group`=%d AND learn_date='%s'";
+    	return $this->execute($sql,$isCrazy,$userId,$group,$today);
+    }
 }

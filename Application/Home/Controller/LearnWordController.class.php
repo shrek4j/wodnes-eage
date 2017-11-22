@@ -25,7 +25,7 @@ class LearnWordController extends Controller {
 		if($todayLearntCount == null){
 			$todayLearntCount = 0;
 		}
-		$unlearntSinceTodayCount = $totalCount - $learntCount - $todayLearntCount;
+		$unlearntSinceTodayCount = $totalCount - ($learntCount - $todayLearntCount);
 		$portionToday = $unlearntSinceTodayCount > $this->$portionPerDay ? $this->$portionPerDay : $unlearntSinceTodayCount;
 		$durationDay = ceil($unlearntSinceTodayCount/$this->portionPerDay);
 		//获取学习进度

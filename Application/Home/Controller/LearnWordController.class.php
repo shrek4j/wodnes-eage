@@ -19,17 +19,18 @@ class LearnWordController extends Controller {
 		if($learntCount == null){
 			$learntCount = 0;
 		}
-		$unlearntCount = $totalCount - $learntCount;
-		$portionToday = $unlearntCount > $this->$portionPerDay ? $this->$portionPerDay : $unlearntCount;
-		$durationDay = ceil($unlearntCount/$this->portionPerDay);
-		//获取学习进度
-		$progress = $learnWordModel->checkUserLearnProgress($userId,$group);
 		$today=date('Y-m-d');
 		$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
 		$todayLearntCount = $countToday[0]['count_today'];
 		if($todayLearntCount == null){
 			$todayLearntCount = 0;
 		}
+		$unlearntSinceTodayCount = $totalCount - $learntCount - $todayLearntCount;
+		$portionToday = $unlearntSinceTodayCount > $this->$portionPerDay ? $this->$portionPerDay : $unlearntSinceTodayCount;
+		$durationDay = ceil($unlearntSinceTodayCount/$this->portionPerDay);
+		//获取学习进度
+		$progress = $learnWordModel->checkUserLearnProgress($userId,$group);
+
 		$result = array("group"=>$group,"progress"=>$progress,"totalCount"=>$totalCount,"learntCount"=>$learntCount,"portionPerDay"=>$this->portionPerDay,"durationDay"=>$durationDay,"todayLearntCount"=>$todayLearntCount,"portionToday"=>$portionToday);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
@@ -85,6 +86,9 @@ class LearnWordController extends Controller {
 			}else{//继续学习下个单词
 				$nextWordId = $nextWord[0]['id'];
 				$roots = $learnWordModel->getRootInfo($nextWordId);
+				if($portionToday + $todayLearntCount){
+
+				}
 				$percent = round($todayLearntCount*100/$portionToday);
 				$crazy = $learnWordModel->checkUserLearnCrazy($userId,$group,$today);
 				$isCrazy = $crazy[0]['is_crazy'];
@@ -92,7 +96,7 @@ class LearnWordController extends Controller {
 				if($isCrazy == 1){
 					$isFinished = "todayCrazy";
 				}
-				$result = array("isFinished"=>$isFinished,"group"=>$group,"nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionToday"=>$portionToday,"percent"=>$percent);
+				$result = array("isFinished"=>$isFinished,"group"=>$group,"nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionToday"=>$portionToday,"portionPerDay"=>$this->portionPerDay,"percent"=>$percent);
 			}
 		}else{//学习完成
 			$learnWordModel->setUserLearnProgressFinished($today,$userId,$group);

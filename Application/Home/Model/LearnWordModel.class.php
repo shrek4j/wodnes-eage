@@ -69,8 +69,13 @@ class LearnWordModel extends Model {
     	return $this->query($sql,$userId,$group);
     }
 
-    public function checkUserLearnCrazy($userId,$group,$today){
+    public function countUserLearnCrazy($userId,$group,$today){
     	$sql = "SELECT count(1) crazy_count FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d AND learn_date='%s'";
+    	return $this->query($sql,$userId,$group,$today);
+    }
+
+    public function checkUserLearnCrazy($userId,$group,$today){
+    	$sql = "SELECT is_crazy FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d AND learn_date='%s'";
     	return $this->query($sql,$userId,$group,$today);
     }
 

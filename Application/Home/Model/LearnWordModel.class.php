@@ -70,7 +70,7 @@ class LearnWordModel extends Model {
     }
 
     public function checkUserLearnCrazy($userId,$group,$today){
-    	$sql = "SELECT count(1) crazyCount FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d AND learn_date='%s'";
+    	$sql = "SELECT count(1) crazy_count FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d AND learn_date='%s'";
     	return $this->query($sql,$userId,$group,$today);
     }
 

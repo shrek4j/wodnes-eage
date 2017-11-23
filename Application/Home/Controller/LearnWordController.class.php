@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class LearnWordController extends Controller {
 
-    private $portionPerDay = 20;//每天学习单词数量
+    private $portionPerDay = 6;//每天学习单词数量
 
 	/**
 	*展示每天的学习进度
@@ -16,9 +16,6 @@ class LearnWordController extends Controller {
 			$totalCount = 0;
 		}
 		$learntCount = $this->countLearnt($learnWordModel,$userId,$group);
-		if($learntCount == null){
-			$learntCount = 0;
-		}
 		$today=date('Y-m-d');
 		$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
 		$todayLearntCount = $countToday[0]['count_today'];
@@ -36,14 +33,49 @@ class LearnWordController extends Controller {
         $this->ajaxReturn($data);
 	}
 
-	private function countAllWordsToLearn($learnWordModel,$group=1){
-		$totalCount = $learnWordModel->countWordsToLearn($group);
-		return $totalCount[0]['total_count'];
+	private function countAllWordsToLearn($learnWordModel,$group){
+		$total = $learnWordModel->countWordsToLearn($group);
+		$totalCount = $total[0]['total_count'];
+		if($totalCount == null){
+			$totalCount = 0;
+		}
+		return $totalCount;
 	}
 
-	public function countLearnt($learnWordModel,$userId,$group=1){
-		$learntCount = $learnWordModel->countLearnt($userId,$group);
-		return $learntCount[0]['count_learnt']; 
+	public function countLearnt($learnWordModel,$userId,$group){
+		$learnt = $learnWordModel->countLearnt($userId,$group);
+		$learntCount = $learnt[0]['count_learnt']; 
+		if($learntCount == null){
+			$learntCount = 0;
+		}
+		return $learntCount;
+	}
+
+	public function countLearnDays($learnWordModel,$userId,$group){
+		$days = $learnWordModel->countLearnDays($userId,$group);
+		$learnDaysCount = $days[0]['count_learn_days']; 
+		if($learnDaysCount == null){
+			$learnDaysCount = 0;
+		}
+		return $learnDaysCount;
+	}
+
+	public function countCrazyDays($learnWordModel,$userId,$group){
+		$days = $learnWordModel->countLearnDays($userId,$group);
+		$learnDaysCount = $days[0]['count_crazy_days']; 
+		if($learnDaysCount == null){
+			$learnDaysCount = 0;
+		}
+		return $learnDaysCount;
+	}
+
+	public function countTodayLearnt($learnWordModel,$userId,$today,$group){
+		$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
+		$todayLearntCount = $countToday[0]['count_today'];
+		if($todayLearntCount == null){
+			$todayLearntCount = 0;
+		}
+		return $todayLearntCount;
 	}
 
 	/**
@@ -53,6 +85,7 @@ class LearnWordController extends Controller {
 		$today=date('Y-m-d');
 		$learnWordModel = new \Home\Model\LearnWordModel();
 
+		//1.判断动作
 		if($progress == "start"){//只会在第一次点击一个学习计划的开始学习时进入
 			$learnWordModel->addUserLearnProgress($userId,$group,$today);
 			$learnWordModel->addUserLearnCrazy($userId,$group,$today,0);
@@ -71,24 +104,23 @@ class LearnWordController extends Controller {
 			$learnWordModel->setUserLearnCrazy(1,$userId,$group,$today);
 		}
 
-		//尝试获取新单词
+		//2.今天的任务完成，记录今天的学习状态为已完成
+		$todayLearntCount = $this->countTodayLearnt($learnWordModel,$userId,$today,$group);//今天学了多少单词
+		if($todayLearntCount == $portionToday){
+			$learnWordModel->setUserLearnCrazy(2,$userId,$group,$today);
+		}
+
+		//3.尝试获取新单词
 		$nextWord = $learnWordModel->getNextWord($userId,$group);
 		if(!empty($nextWord)){
-			
-			//今天学了多少单词
-			$countToday = $learnWordModel->countTodayLearnt($userId,$today,$group);
-			$todayLearntCount = $countToday[0]['count_today'];
-			if($todayLearntCount == null){
-				$todayLearntCount = 0;
-			}
 			if($todayLearntCount == $portionToday){//完成了今天的学习任务
+				$learnDaysCount = $this->countLearnDays($learnWordModel,$userId,$group);//已经学了多少天了
+				$crazyDaysCount = $this->countCrazyDays($learnWordModel,$userId,$group);
+				$learntCount = $this->countLearnt($learnWordModel,$userId,$group);
 				$result = array("isFinished"=>"todayTrue");
 			}else{//继续学习下个单词
 				$nextWordId = $nextWord[0]['id'];
 				$roots = $learnWordModel->getRootInfo($nextWordId);
-				if($portionToday + $todayLearntCount){
-
-				}
 				$percent = round($todayLearntCount*100/$portionToday);
 				$crazy = $learnWordModel->checkUserLearnCrazy($userId,$group,$today);
 				$isCrazy = $crazy[0]['is_crazy'];

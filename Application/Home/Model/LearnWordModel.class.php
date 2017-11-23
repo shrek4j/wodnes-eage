@@ -88,4 +88,14 @@ class LearnWordModel extends Model {
     	$sql = "UPDATE user_wiki_word_learn_crazy SET is_crazy=%d WHERE user_id=%d AND `group`=%d AND learn_date='%s'";
     	return $this->execute($sql,$isCrazy,$userId,$group,$today);
     }
+
+    public function countLearnDays($userId,$group){
+    	$sql = "SELECT COUNT(DISTINCT learn_date) count_learn_days FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d";
+        return $this->query($sql,$userId,$group);
+    }
+
+    public function countCrazyDays($userId,$group){
+    	$sql = "SELECT COUNT(DISTINCT learn_date) count_crazy_days FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d AND is_crazy=1";
+        return $this->query($sql,$userId,$group);
+    }
 }

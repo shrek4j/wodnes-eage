@@ -29,7 +29,7 @@ class LearnWordModel extends Model {
     }
 
     public function getNextWord($userId,$group){
-    	$sql = "SELECT wr.* FROM wiki_word_root_rela wwrr 
+    	$sql = "SELECT DISTINCT wr.* FROM wiki_word_root_rela wwrr 
         		LEFT JOIN wiki_word_root_learn_template wwrlt ON wwrr.word_root_id=wwrlt.word_root_id  
         		LEFT JOIN wiki_word wr ON wwrr.word_id=wr.id 
         		WHERE wr.learn_flag=1 

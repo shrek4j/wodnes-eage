@@ -78,6 +78,15 @@ class LearnWordController extends Controller {
 		return $todayLearntCount;
 	}
 
+	
+	public function countMostOneDay($learnWordModel,$userId,$today,$group){
+		$countMostOneDay = $learnWordModel->countMostOneDay($userId,$today,$group);
+		$mostOneDayCount = $countMostOneDay[0]['mostOneDay'];
+		if($mostOneDayCount == null){
+			$mostOneDayCount = 0;
+		}
+		return $mostOneDayCount;
+	}
 	/**
 	* $progress  start:开始学习(需要插入学习进度信息)  resume:第二天继续学习(无需做任何处理)   next:下一个单词(需要保存上一个单词的学习情况)
 	*/
@@ -132,8 +141,12 @@ class LearnWordController extends Controller {
 			}
 		}else{//学习完成
 			$learnWordModel->setUserLearnProgressFinished($today,$userId,$group);
-			//TODO 显示学习成果，分享给大家
-			$result = array("isFinished"=>"true");
+
+			$learnDaysCount = $this->countLearnDays($learnWordModel,$userId,$group);
+			$crazyDaysCount = $this->countCrazyDays($learnWordModel,$userId,$group);
+			$learntCount = $this->countLearnt($learnWordModel,$userId,$group);
+			$mostOneDayCount = $this->countMostOneDay($learnWordModel,$userId,$group);
+			$result = array("isFinished"=>"true","learnDaysCount"=>$learnDaysCount,"crazyDaysCount"=>$crazyDaysCount,"learntCount"=>$learntCount,"mostOneDayCount"=>$mostOneDayCount);
 		}
 		$data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);

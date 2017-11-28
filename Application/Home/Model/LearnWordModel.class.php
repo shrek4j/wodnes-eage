@@ -98,4 +98,9 @@ class LearnWordModel extends Model {
     	$sql = "SELECT COUNT(DISTINCT learn_date) count_crazy_days FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d AND is_crazy=1";
         return $this->query($sql,$userId,$group);
     }
+
+    public function countMostOneDay($userId,$group){
+    	$sql = "SELECT COUNT(1) mostOneDay FROM user_wiki_word_learn WHERE user_id=%d AND `group`=%d GROUP BY learn_date LIMIT 1";
+        return $this->query($sql,$userId,$group);
+    }
 }

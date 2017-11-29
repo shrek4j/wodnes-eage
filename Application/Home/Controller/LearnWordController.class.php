@@ -113,9 +113,9 @@ class LearnWordController extends Controller {
 			$learnWordModel->setUserLearnCrazy(1,$userId,$group,$today);
 		}
 
-		//2.今天的任务完成，记录今天的学习状态为已完成
+		//今天的任务完成，记录今天的学习状态为已完成
 		$todayLearntCount = $this->countTodayLearnt($learnWordModel,$userId,$today,$group);//今天学了多少单词
-		if($todayLearntCount == $portionToday){
+		if($progress == "next" && $todayLearntCount == $portionToday){
 			$learnWordModel->setUserLearnCrazy(2,$userId,$group,$today);
 		}
 

@@ -122,7 +122,7 @@ class LearnWordController extends Controller {
 		//3.尝试获取新单词
 		$nextWord = $learnWordModel->getNextWord($userId,$group);
 		if(!empty($nextWord)){
-			if($todayLearntCount == $portionToday || $progress != "goCrazy"){//完成了今天的学习任务
+			if($todayLearntCount == $portionToday && $progress != "goCrazy"){//完成了今天的学习任务
 				$learnDaysCount = $this->countLearnDays($learnWordModel,$userId,$group);//已经学了多少天了
 				$crazyDaysCount = $this->countCrazyDays($learnWordModel,$userId,$group);
 				$learntCount = $this->countLearnt($learnWordModel,$userId,$group);

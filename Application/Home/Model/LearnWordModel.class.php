@@ -100,7 +100,7 @@ class LearnWordModel extends Model {
     }
 
     public function countMostOneDay($userId,$group){
-    	$sql = "SELECT COUNT(1) mostOneDay FROM user_wiki_word_learn WHERE user_id=%d AND `group`=%d GROUP BY learn_date LIMIT 1";
+    	$sql = "SELECT COUNT(1) count_most FROM user_wiki_word_learn WHERE user_id=%d AND `group`=%d GROUP BY learn_date ORDER BY count_most DESC LIMIT 1";
         return $this->query($sql,$userId,$group);
     }
 }

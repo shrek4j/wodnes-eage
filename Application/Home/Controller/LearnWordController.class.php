@@ -61,7 +61,7 @@ class LearnWordController extends Controller {
 	}
 
 	public function countCrazyDays($learnWordModel,$userId,$group){
-		$days = $learnWordModel->countLearnDays($userId,$group);
+		$days = $learnWordModel->countCrazyDays($userId,$group);
 		$learnDaysCount = $days[0]['count_crazy_days']; 
 		if($learnDaysCount == null){
 			$learnDaysCount = 0;
@@ -81,7 +81,7 @@ class LearnWordController extends Controller {
 	
 	public function countMostOneDay($learnWordModel,$userId,$today,$group){
 		$countMostOneDay = $learnWordModel->countMostOneDay($userId,$today,$group);
-		$mostOneDayCount = $countMostOneDay[0]['mostOneDay'];
+		$mostOneDayCount = $countMostOneDay[0]['count_most'];
 		if($mostOneDayCount == null){
 			$mostOneDayCount = 0;
 		}

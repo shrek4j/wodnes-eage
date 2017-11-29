@@ -126,7 +126,7 @@ class LearnWordController extends Controller {
 				$learnDaysCount = $this->countLearnDays($learnWordModel,$userId,$group);//已经学了多少天了
 				$crazyDaysCount = $this->countCrazyDays($learnWordModel,$userId,$group);
 				$learntCount = $this->countLearnt($learnWordModel,$userId,$group);
-				$result = array("isFinished"=>"todayTrue","learnDaysCount"=>$learnDaysCount,"crazyDaysCount"=>$crazyDaysCount,"learntCount"=>$learntCount);
+				$result = array("isFinished"=>"todayTrue","learnDaysCount"=>$learnDaysCount,"crazyDaysCount"=>$crazyDaysCount,"learntCount"=>$learntCount,"group"=>$group,"portionToday"=>$portionToday);
 			}else{//继续学习下个单词
 				$nextWordId = $nextWord[0]['id'];
 				$roots = $learnWordModel->getRootInfo($nextWordId);

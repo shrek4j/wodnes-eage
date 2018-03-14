@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class LearnWordController extends Controller {
 
-    private $portionPerDay = 6;//每天学习单词数量
+    private $portionPerDay = 10;//每天学习单词数量
 
 	/**
 	*展示每天的学习进度

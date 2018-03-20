@@ -25,15 +25,18 @@ class LoginController extends Controller {
 
         $wxdataRslt = json_decode($wxdata);
         $openid = $wxdataRslt->openid;
-        $userModel = new \Home\Model\UserModel();
-        $user = $userModel->checkIfUserExist($openid);
-        if(count($user) <= 0){
-            $userModel = new \Home\Model\UserModel();
-            $user = $userModel->addUser($openid);
+        if($openid != null && $openid != ""){
+             $userModel = new \Home\Model\UserModel();
+            $user = $userModel->checkIfUserExist($openid);
+            if(count($user) <= 0){
+                $userModel = new \Home\Model\UserModel();
+                $user = $userModel->addUser($openid);
+            }
+            $userId = $user[0]['id'];
+            $result = array("sfz"=>$userId);
+        }else{
+            $result = array("sfz"=>0);
         }
-        $userId = $user[0]['id'];
-
-        $result = array("sfz"=>$userId);
         $data = json_encode($result);
         $this->ajaxReturn($data);
     }

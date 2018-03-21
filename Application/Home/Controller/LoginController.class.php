@@ -27,7 +27,11 @@ class LoginController extends Controller {
 
             $wxdataRslt = json_decode($wxdata);
             $openid = $wxdataRslt->openid;
-            count++;
+            $count++;
+        }
+
+        if($openid == null || $openid == ""){
+            $openid = 0;
         }
         
         $userModel = new \Home\Model\UserModel();

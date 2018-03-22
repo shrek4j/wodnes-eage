@@ -34,6 +34,27 @@ class MorphController extends Controller {
         $this->ajaxReturn($data);
     }
 
+    public function showMorphemesByCapitalJsonPaging($capital='a',$pageNo=0,$pageSize=20){
+        $morph = new \Home\Model\MorphModel();
+        $start = $pageNo*$pageSize;
+        if(strval($capital) == '100'){
+            $morphList = $morph->showAllMorphemes($start,$pageSize);
+            $showType = "1";
+        }else if(strval($capital) == '200'){
+            $morphList = $morph->showAllMorphemes($start+100,$pageSize);
+            $showType = "2";
+        }else if(strval($capital) == '300'){
+            $morphList = $morph->showAllMorphemes($start+200,$pageSize);
+            $showType = "3";
+        }else{
+            $morphList = $morph->showMorphemeByCapital($capital);
+            $showType = "0";
+        }
+        $result = array("morphList"=>$morphList,"capital"=>$capital,"showType"=>$showType);
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+    }
+
     public function fuzzySearchMorph($fuzzyMorph){
         if(strlen($fuzzyMorph)>25){
             $this->ajaxReturn('noresult');

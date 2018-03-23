@@ -34,7 +34,7 @@ class MorphController extends Controller {
         $this->ajaxReturn($data);
     }
 
-    public function showMorphemesByCapitalJsonPaging($capital='a',$pageNo=0,$pageSize=20){
+    public function showMorphemesByCapitalJsonPaging($capital='a',$pageNo=0,$pageSize=10){
         $morph = new \Home\Model\MorphModel();
         $start = $pageNo*$pageSize;
         if(strval($capital) == '100'){
@@ -90,6 +90,17 @@ class MorphController extends Controller {
     public function showWordsByMorphemeJson($morphemeId=1){
         $morph = new \Home\Model\MorphModel();
         $wordList = $morph->showWordsByMorpheme($morphemeId);
+        $morpheme = $morph->showMorphemeById($morphemeId);
+
+        $result = array("wordList"=>$wordList,"morpheme"=>$morpheme);
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+    }
+
+    public function showWordsByMorphemeJsonPaging($morphemeId=1,$pageNo=0,$pageSize=10){
+        $start = $pageNo*$pageSize;
+        $morph = new \Home\Model\MorphModel();
+        $wordList = $morph->showWordsByMorphemePaging($morphemeId,$start,$pageSize);
         $morpheme = $morph->showMorphemeById($morphemeId);
 
         $result = array("wordList"=>$wordList,"morpheme"=>$morpheme);

@@ -27,6 +27,11 @@ class MorphModel extends Model {
 		return $this->query($sql,$capital);
     }
 
+    public function showMorphemeByCapitalPaging($capital,$start,$num){
+        $sql = "select id,word_root,meaning,origin,rank from wiki_word_root where capital_letter = '%s' order by total_log_freq desc limit ".$start.",".$num;
+        return $this->query($sql,$capital,$start,$num);
+    }
+
     //只查询词根，忽略前缀
     public function showAllMorphemes($start,$num){
         $sql = "select id,word_root,meaning,origin,rank from wiki_word_root where morpheme_type=0 order by rank asc limit ".$start.",".$num;

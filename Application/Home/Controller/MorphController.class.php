@@ -47,7 +47,7 @@ class MorphController extends Controller {
             $morphList = $morph->showAllMorphemes($start+200,$pageSize);
             $showType = "3";
         }else{
-            $morphList = $morph->showMorphemeByCapital($capital);
+            $morphList = $morph->showMorphemeByCapitalPaging($capital,$start,$pageSize);
             $showType = "0";
         }
         $result = array("morphList"=>$morphList,"capital"=>$capital,"showType"=>$showType);

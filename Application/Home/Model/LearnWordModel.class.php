@@ -103,4 +103,30 @@ class LearnWordModel extends Model {
     	$sql = "SELECT COUNT(1) count_most FROM user_wiki_word_learn WHERE user_id=%d AND `group`=%d GROUP BY learn_date ORDER BY count_most DESC LIMIT 1";
         return $this->query($sql,$userId,$group);
     }
+
+    public function deleteLearnWords($userId, $group){
+        $sql = "DELETE FROM user_wiki_word_learn WHERE user_id=%d AND `group`=%d";
+        return $this->execute($sql,$userId,$group);
+    }
+
+    public function deleteLearnDaily($userId, $group){
+        $sql = "DELETE FROM user_wiki_word_learn_crazy WHERE user_id=%d AND `group`=%d";
+        return $this->execute($sql,$userId,$group);
+    }
+
+    public function deleteLearnProgress($userId, $group){
+        $sql = "DELETE FROM user_wiki_word_learn_progress WHERE user_id=%d AND `group`=%d";
+        return $this->execute($sql,$userId,$group);
+    }
+
+    public function getLearntWords($userId, $group, $learnFlag, $start, $pageSize){
+        $sql = "SELECT * FROM user_wiki_word_learn WHERE user_id = %d AND `group` = %d AND learn_status = %d LIMIT %d,%d";
+        return $this->query($sql, $userId, $group, $learnFlag, $start, $pageSize);
+    }
+
+    public function updateWordLearnStatus($userId, $group, $wordId, $learnFlag){
+        $sql = "UPDATE user_wiki_word_learn SET learn_status = %d WHERE user_id = %d AND `group` = %d AND word_id = %d";
+        return $this->execute($sql, $learnFlag, $userId, $group, $wordId);
+    }
+    
 }

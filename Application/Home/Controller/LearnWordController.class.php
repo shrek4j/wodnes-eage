@@ -152,4 +152,53 @@ class LearnWordController extends Controller {
         $this->ajaxReturn($data);
 	}
 
+
+	public function resetLearnWords($userId, $group){
+		$learnWordModel = new \Home\Model\LearnWordModel();
+		$learnWordModel->deleteLearnWords($userId,$group);
+		$learnWordModel->deleteLearnDaily($userId,$group);
+		$learnWordModel->deleteLearnProgress($userId,$group);
+		$result = array("result"=>"ok");
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+	}
+
+	public function toHardWords($userId, $group, $pageNo, $pageSize){
+		$learnWordModel = new \Home\Model\LearnWordModel();
+		$learnFlag = 0;
+		$start = $pageNo*$pageSize;
+		$words = $learnWordModel->getLearntWords($userId, $group, $learnFlag, $start, $pageSize);
+		$result = array("wordList"=>$words);
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+	}
+
+	public function toLearntWords($userId, $group, $pageNo, $pageSize){
+		$learnWordModel = new \Home\Model\LearnWordModel();
+		$learnFlag = 1;
+		$start = $pageNo*$pageSize;
+		$words = $learnWordModel->getLearntWords($userId, $group, $learnFlag, $start, $pageSize);
+		$result = array("wordList"=>$words);
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+	}
+
+	public function setLearnt($userId,$group,$wordId){
+		$learnWordModel = new \Home\Model\LearnWordModel();
+		$learnFlag = 1;
+		$learnWordModel->updateWordLearnStatus($userId, $group, $wordId, $learnFlag);
+		$result = array("result"=>"ok");
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+	}
+
+	public function setUnLearnt($userId,$group,$wordId){
+		$learnWordModel = new \Home\Model\LearnWordModel();
+		$learnFlag = 0;
+		$learnWordModel->updateWordLearnStatus($userId, $group, $wordId, $learnFlag);
+		$result = array("result"=>"ok");
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+	}
+
 }

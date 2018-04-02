@@ -37,6 +37,7 @@ class LoginController extends Controller {
                 $user = $userModel->addUser($openid);
             }
             $userId = $user[0]['id'];
+            session('sfz', $userId);
         }
         $result = array("sfz"=>$userId);
         

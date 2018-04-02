@@ -154,11 +154,16 @@ class LearnWordController extends Controller {
 
 
 	public function resetLearnWords($userId, $group){
-		$learnWordModel = new \Home\Model\LearnWordModel();
-		$learnWordModel->deleteLearnWords($userId,$group);
-		$learnWordModel->deleteLearnDaily($userId,$group);
-		$learnWordModel->deleteLearnProgress($userId,$group);
-		$result = array("result"=>"ok");
+		$sfz = session('sfz');
+		if(!empty($userId) && !empty($sfz) && $sfz == $userId){
+			$learnWordModel = new \Home\Model\LearnWordModel();
+			$learnWordModel->deleteLearnWords($userId,$group);
+			$learnWordModel->deleteLearnDaily($userId,$group);
+			$learnWordModel->deleteLearnProgress($userId,$group);
+			$result = array("result"=>"ok");
+		}else{
+			$result = array("result"=>"wrongAuth");
+		}
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
 	}

@@ -46,7 +46,6 @@ class LoginController extends Controller {
         $this->ajaxReturn($data);
     }
 
-
     public function onLoginTest($code){
         $APPID = "wx4ffd6dcb1f7a62c4";
         $SECRET = "3c53ecb5f0b6a6517ad9224a22db32d3";

@@ -39,7 +39,8 @@ class LoginController extends Controller {
             $userId = $user[0]['id'];
             session('sfz', $userId);
         }
-        $result = array("sfz"=>$userId);
+        $sessionId = session_id();
+        $result = array("sfz"=>$userId,"sId"=>$sessionId);
         
         $data = json_encode($result);
         $this->ajaxReturn($data);

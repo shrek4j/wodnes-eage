@@ -120,7 +120,14 @@ class LearnWordModel extends Model {
     }
 
     public function getLearntWords($userId, $group, $learnFlag, $start, $pageSize){
-        $sql = "SELECT * FROM user_wiki_word_learn WHERE user_id = %d AND `group` = %d AND learn_status = %d LIMIT %d,%d";
+        //$sql = "SELECT * FROM user_wiki_word_learn WHERE user_id = %d AND `group` = %d AND learn_status = %d LIMIT %d,%d";
+        $sql = "SELECT wr.id,wr.word,wr.translation,wr.learn_by_root FROM user_wiki_word_learn uwwl
+                LEFT JOIN wiki_word wr ON uwwl.word_id=wr.id 
+                WHERE uwwl.user_id = %d
+                AND uwwl.group = %d
+                AND uwwl.learn_status = 0 
+                ORDER BY wr.id ASC
+                LIMIT %d,%d";
         return $this->query($sql, $userId, $group, $learnFlag, $start, $pageSize);
     }
 

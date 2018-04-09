@@ -124,6 +124,11 @@ class LearnWordModel extends Model {
         return $this->query($sql, $userId, $group, $learnFlag, $start, $pageSize);
     }
 
+    public function countLearntWords($userId, $group, $learnFlag){
+        $sql = "SELECT count(wr.id) as count FROM user_wiki_word_learn uwwl LEFT JOIN wiki_word wr ON uwwl.word_id=wr.id WHERE uwwl.user_id = %d AND uwwl.`group` = %d AND uwwl.learn_status = %d";
+        return $this->query($sql, $userId, $group, $learnFlag);
+    }
+
     public function updateWordLearnStatus($userId, $group, $wordId, $learnFlag){
         $sql = "UPDATE user_wiki_word_learn SET learn_status = %d WHERE user_id = %d AND `group` = %d AND word_id = %d";
         return $this->execute($sql, $learnFlag, $userId, $group, $wordId);

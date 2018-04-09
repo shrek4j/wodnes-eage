@@ -173,7 +173,12 @@ class LearnWordController extends Controller {
 		$learnFlag = 0;
 		$start = $pageNo*$pageSize;
 		$words = $learnWordModel->getLearntWords($userId, $group, $learnFlag, $start, $pageSize);
-		$result = array("wordList"=>$words);
+		for($i=0;$i<count($words);$i++){
+			$roots = $learnWordModel->getRootInfo($words[$i]['id']);
+			$words[$i]['roots'] = $roots;
+		}
+		$count = $learnWordModel->countLearntWords($userId, $group, $learnFlag);
+		$result = array("wordList"=>$words,"totalCount"=>$count[0]['count']);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
 	}
@@ -183,7 +188,12 @@ class LearnWordController extends Controller {
 		$learnFlag = 1;
 		$start = $pageNo*$pageSize;
 		$words = $learnWordModel->getLearntWords($userId, $group, $learnFlag, $start, $pageSize);
-		$result = array("wordList"=>$words);
+		for($i=0;$i<count($words);$i++){
+			$roots = $learnWordModel->getRootInfo($words[$i]['id']);
+			$words[$i]['roots'] = $roots;
+		}
+		$count = $learnWordModel->countLearntWords($userId, $group, $learnFlag);
+		$result = array("wordList"=>$words,"totalCount"=>$count[0]['count']);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
 	}

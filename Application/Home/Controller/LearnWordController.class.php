@@ -168,10 +168,9 @@ class LearnWordController extends Controller {
         $this->ajaxReturn($data);
 	}
 
-	public function toHardWords($userId, $group, $pageNo, $pageSize){
+	public function toHardWords($userId, $group, $start, $pageSize){
 		$learnWordModel = new \Home\Model\LearnWordModel();
 		$learnFlag = 0;
-		$start = $pageNo*$pageSize;
 		$words = $learnWordModel->getLearntWords($userId, $group, $learnFlag, $start, $pageSize);
 		for($i=0;$i<count($words);$i++){
 			$roots = $learnWordModel->getRootInfo($words[$i]['id']);
@@ -183,10 +182,9 @@ class LearnWordController extends Controller {
         $this->ajaxReturn($data);
 	}
 
-	public function toLearntWords($userId, $group, $pageNo, $pageSize){
+	public function toLearntWords($userId, $group, $start, $pageSize){
 		$learnWordModel = new \Home\Model\LearnWordModel();
 		$learnFlag = 1;
-		$start = $pageNo*$pageSize;
 		$words = $learnWordModel->getLearntWords($userId, $group, $learnFlag, $start, $pageSize);
 		for($i=0;$i<count($words);$i++){
 			$roots = $learnWordModel->getRootInfo($words[$i]['id']);

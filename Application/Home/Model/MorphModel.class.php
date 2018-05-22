@@ -8,12 +8,12 @@ class MorphModel extends Model {
 	#UPDATE wiki_word SET has_translation = 1 WHERE translation NOT LIKE ''
     #UPDATE wiki_word SET has_translation = 0 WHERE translation LIKE ''
     public function showWordsByMorpheme($morphemeId){
-        $sql = "SELECT ww.id,ww.word,ww.translation,ww.freq_level,ww.all_ielts_freq,ww.learn_by_root FROM wiki_word_root_rela wwrr LEFT JOIN wiki_word ww ON wwrr.word_id=ww.id WHERE wwrr.word_root_id=%d AND ww.has_translation = 1 order by ww.log_freq desc,LENGTH(ww.word) asc,ww.word asc";
+        $sql = "SELECT ww.id,ww.word,ww.translation,ww.freq_level,ww.all_ielts_freq,ww.learn_by_root,ww.kaoyan_tag FROM wiki_word_root_rela wwrr LEFT JOIN wiki_word ww ON wwrr.word_id=ww.id WHERE wwrr.word_root_id=%d AND ww.has_translation = 1 order by ww.log_freq desc,LENGTH(ww.word) asc,ww.word asc";
         return $this->query($sql,$morphemeId);
     }
 
     public function showWordsByMorphemePaging($morphemeId,$start,$num){
-        $sql = "SELECT ww.id,ww.word,ww.translation,ww.freq_level,ww.all_ielts_freq,ww.learn_by_root FROM wiki_word_root_rela wwrr LEFT JOIN wiki_word ww ON wwrr.word_id=ww.id WHERE wwrr.word_root_id=%d AND ww.has_translation = 1 order by ww.log_freq desc,LENGTH(ww.word) asc,ww.word asc limit %d,%d";
+        $sql = "SELECT ww.id,ww.word,ww.translation,ww.freq_level,ww.all_ielts_freq,ww.learn_by_root,ww.kaoyan_tag FROM wiki_word_root_rela wwrr LEFT JOIN wiki_word ww ON wwrr.word_id=ww.id WHERE wwrr.word_root_id=%d AND ww.has_translation = 1 order by ww.log_freq desc,LENGTH(ww.word) asc,ww.word asc limit %d,%d";
         return $this->query($sql,$morphemeId,$start,$num);
     }
 

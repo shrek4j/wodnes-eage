@@ -52,5 +52,15 @@ class MorphModel extends Model {
         $sql = "SELECT id,word_root,meaning,origin FROM wiki_word_root WHERE (word_root LIKE '".$fuzzyMorph."%' OR word_root LIKE '%,".$fuzzyMorph."%') LIMIT 5 UNION SELECT wwr.id,wwr.word_root,wwr.meaning,origin FROM wiki_word ww INNER JOIN wiki_word_root_rela wwrr ON ww.id = wwrr.word_id INNER JOIN wiki_word_root wwr ON wwrr.word_root_id=wwr.id WHERE ww.word = '".$fuzzyMorph."' LIMIT 5";
         return $this->query($sql);
     }
+
+    public function showWordInfo($word){
+        $sql = "select * from wiki_word where word='%s'";
+        return $this->query($sql,$word);
+    }
+
+    public function showWordSens($wordId){
+        $sql = "select sen_en,sen_cn,source from wiki_word_sen where word_id=%d";
+        return $this->query($sql,$wordId);
+    }
 }
 

@@ -214,4 +214,23 @@ class LearnWordController extends Controller {
         $this->ajaxReturn($data);
 	}
 
+	public function getWordInfoJson($word){
+		$learnWordModel = new \Home\Model\LearnWordModel();
+		$wordInfo = $learnWordModel->showWordInfo($word);
+		if(empty($wordInfo) || count($wordInfo)<1{
+			$result = array("msg"=>"noinfo");
+	        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+		}else{
+			//get sentences
+			$wordId = $wordInfo[0]['id'];
+			$sens = $learnWordModel->showWordSens($wordId);
+			//get roots
+			$roots = $learnWordModel->getRootInfo($wordId);
+
+			$result = array("wordInfo"=>$wordInfo,"sens"=>$sens,"roots"=>$roots);
+	        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+		}
+		
+        $this->ajaxReturn($data);
+	}
 }

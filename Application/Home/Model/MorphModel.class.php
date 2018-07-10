@@ -53,14 +53,5 @@ class MorphModel extends Model {
         return $this->query($sql);
     }
 
-    public function showWordInfo($word){
-        $sql = "select * from wiki_word where word='%s'";
-        return $this->query($sql,$word);
-    }
-
-    public function showWordSens($wordId){
-        $sql = "select sen_en,sen_cn,source from wiki_word_sen where word_id=%d";
-        return $this->query($sql,$wordId);
-    }
 }
 

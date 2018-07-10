@@ -134,4 +134,13 @@ class LearnWordModel extends Model {
         return $this->execute($sql, $learnFlag, $userId, $group, $wordId);
     }
     
+    public function showWordInfo($word){
+        $sql = "select * from wiki_word where word='%s'";
+        return $this->query($sql,$word);
+    }
+
+    public function showWordSens($wordId){
+        $sql = "select sen_en,sen_cn,source from wiki_word_sen where word_id=%d";
+        return $this->query($sql,$wordId);
+    }
 }

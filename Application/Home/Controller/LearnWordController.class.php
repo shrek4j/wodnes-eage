@@ -217,7 +217,7 @@ class LearnWordController extends Controller {
 	public function getWordInfoJson($word){
 		$learnWordModel = new \Home\Model\LearnWordModel();
 		$wordInfo = $learnWordModel->showWordInfo($word);
-		if(empty($wordInfo) || count($wordInfo)<1{
+		if(empty($wordInfo) || count($wordInfo)<1){
 			$result = array("msg"=>"noinfo");
 	        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
 		}else{

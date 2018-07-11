@@ -215,6 +215,7 @@ class LearnWordController extends Controller {
 	}
 
 	public function getWordInfoJson($word){
+		$word = strtolower($word);
 		$learnWordModel = new \Home\Model\LearnWordModel();
 		$wordInfo = $learnWordModel->showWordInfo($word);
 		if(empty($wordInfo) || count($wordInfo)<1){

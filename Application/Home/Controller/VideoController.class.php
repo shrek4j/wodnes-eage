@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class MusicController extends Controller {
+class VideoController extends Controller {
     
 
     public function getVideoListPaging($pageNo=0,$pageSize=10){

@@ -140,7 +140,7 @@ class LearnWordController extends Controller {
 		
 		if(!empty($nextWord)){//学习中
 			//1.查询金币
-			$coinRow = $userModel.checkCoins($userId);
+			$coinRow = $userModel->checkCoins($userId);
 			$coins = 0;
 			if(!empty($coinRow)){
 				$coins = $coinRow[0]['coins'];

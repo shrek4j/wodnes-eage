@@ -18,12 +18,12 @@ class UserModel extends Model {
     }
 
     public function checkCoins($userId){
-        $sql = "SELECT coins FROM USER WHERE id = %d";
+        $sql = "SELECT coins FROM user WHERE id = %d";
         return $this->query($sql,$userId);
     }
 
     public function changeCoin($coin, $userId){
-        $sql = "UPDATE USER SET coins = coins + %d WHERE id = %d";
+        $sql = "UPDATE user SET coins = coins + %d WHERE id = %d";
         $this->execute($sql,$coin,$userId);
     }
 }

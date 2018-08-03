@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class LearnWordController extends Controller {
 
-    private $portionPerDay = 10;//每天学习单词数量
+    private $portionPerDay = 20;//每天学习单词数量
 
 	/**
 	*展示每天的学习进度
@@ -87,12 +87,27 @@ class LearnWordController extends Controller {
 		}
 		return $mostOneDayCount;
 	}
+
+	public function rewardCoin($userId){
+		$userModel = new \Home\Model\UserModel();
+		$userModel->changeCoin(30,$userId);
+		$coinRow = $userModel.checkCoins($userId);
+		$coins = 0;
+		if(!empty($coinRow)){
+			$coins = $coinRow[0]['coins'];
+		}
+		$result = array("coins"=>$coins);
+		$data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+	}
+
 	/**
 	* $progress  start:开始学习(需要插入学习进度信息)  resume:第二天继续学习(无需做任何处理)   next:下一个单词(需要保存上一个单词的学习情况)
 	*/
 	public function doLearn($userId,$group=1,$progress,$wordId,$status,$portionToday){
 		$today=date('Y-m-d');
 		$learnWordModel = new \Home\Model\LearnWordModel();
+		$userModel = new \Home\Model\UserModel();
 
 		//1.判断动作
 		if($progress == "start"){//只会在第一次点击一个学习计划的开始学习时进入
@@ -101,8 +116,9 @@ class LearnWordController extends Controller {
 		}else if($progress == "next"){//每次选择下一个单词时
 			if($wordId != null && $wordId != 0 && $status != null){
 				$learnWordModel->saveLearnStatus($wordId,$userId,$status,$today,$group);
+				$userModel->changeCoin(-1,$userId);
 			}
-			//TODO 如果是未掌握，加入到复习清单中
+			
 		}else if($progress == "resume"){//每次退出后，再进入，点击继续学习时
 			$crazy = $learnWordModel->countUserLearnCrazy($userId,$group,$today);
 			if($crazy[0]['crazy_count'] == 0){
@@ -121,24 +137,37 @@ class LearnWordController extends Controller {
 
 		//3.尝试获取新单词
 		$nextWord = $learnWordModel->getNextWord($userId,$group);
-		if(!empty($nextWord)){
-			$crazy = $learnWordModel->checkUserLearnCrazy($userId,$group,$today);
-			$isCrazy = $crazy[0]['is_crazy'];
-			if($todayLearntCount == $portionToday && $isCrazy != 1){//完成了今天的学习任务
-				$learnDaysCount = $this->countLearnDays($learnWordModel,$userId,$group);//已经学了多少天了
-				$crazyDaysCount = $this->countCrazyDays($learnWordModel,$userId,$group);
-				$learntCount = $this->countLearnt($learnWordModel,$userId,$group);
-				$result = array("isFinished"=>"todayTrue","learnDaysCount"=>$learnDaysCount,"crazyDaysCount"=>$crazyDaysCount,"learntCount"=>$learntCount,"group"=>$group,"portionToday"=>$portionToday);
-			}else{//继续学习下个单词
-				$nextWordId = $nextWord[0]['id'];
-				$roots = $learnWordModel->getRootInfo($nextWordId);
-				$percent = round($todayLearntCount*100/$portionToday);
-				$isFinished = "false";
-				if($isCrazy == 1){
-					$isFinished = "todayCrazy";
-				}
-				$result = array("isFinished"=>$isFinished,"group"=>$group,"nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionToday"=>$portionToday,"portionPerDay"=>$this->portionPerDay,"percent"=>$percent);
+		
+		if(!empty($nextWord)){//学习中
+			//1.查询金币
+			$coinRow = $userModel.checkCoins($userId);
+			$coins = 0;
+			if(!empty($coinRow)){
+				$coins = $coinRow[0]['coins'];
 			}
+			
+			if($coins < 1){//没有金币，不能学新词
+				$result = array("isFinished"=>"noCoin","coins"=>$coins,"group"=>$group,"portionToday"=>$portionToday);
+			}else{//查询单词
+				$crazy = $learnWordModel->checkUserLearnCrazy($userId,$group,$today);
+				$isCrazy = $crazy[0]['is_crazy'];
+				if($todayLearntCount == $portionToday && $isCrazy != 1){//完成了今天的学习任务
+					$learnDaysCount = $this->countLearnDays($learnWordModel,$userId,$group);//已经学了多少天了
+					$crazyDaysCount = $this->countCrazyDays($learnWordModel,$userId,$group);
+					$learntCount = $this->countLearnt($learnWordModel,$userId,$group);
+					$result = array("isFinished"=>"todayTrue","learnDaysCount"=>$learnDaysCount,"crazyDaysCount"=>$crazyDaysCount,"learntCount"=>$learntCount,"group"=>$group,"portionToday"=>$portionToday,"coins"=>$coins);
+				}else{//继续学习下个单词
+					$nextWordId = $nextWord[0]['id'];
+					$roots = $learnWordModel->getRootInfo($nextWordId);
+					$percent = round($todayLearntCount*100/$portionToday);
+					$isFinished = "false";
+					if($isCrazy == 1){
+						$isFinished = "todayCrazy";
+					}
+					$result = array("isFinished"=>$isFinished,"group"=>$group,"nextWord"=>$nextWord,"roots"=>$roots,"todayLearntCount"=>$todayLearntCount,"portionToday"=>$portionToday,"portionPerDay"=>$this->portionPerDay,"percent"=>$percent);
+				}
+			}
+			
 		}else{//学习完成
 			$learnWordModel->setUserLearnProgressFinished($today,$userId,$group);
 

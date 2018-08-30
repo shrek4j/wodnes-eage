@@ -26,5 +26,27 @@ class UserModel extends Model {
         $sql = "UPDATE user SET coins = coins + %d WHERE id = %d";
         $this->execute($sql,$coin,$userId);
     }
+
+    public function checkIfUserExistVideo($openid){
+        $sql = "SELECT id from user_video where openid='%s'";
+        return $this->query($sql,$openid);
+    }
+    
+    public function addUserVideo($openid){
+        $sql = "insert into user_video(openid) values('%s')";
+        $this->execute($sql,$openid);
+        $queryIdSql = "SELECT @@IDENTITY as id";
+        return $this->query($queryIdSql);
+    }
+
+    public function checkCoinsVideo($userId){
+        $sql = "SELECT coins FROM user_video WHERE id = %d";
+        return $this->query($sql,$userId);
+    }
+
+    public function changeCoinVideo($coin, $userId){
+        $sql = "UPDATE user_video SET coins = coins + %d WHERE id = %d";
+        $this->execute($sql,$coin,$userId);
+    }
 }
 

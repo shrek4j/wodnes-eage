@@ -73,10 +73,10 @@ class LoginController extends Controller {
             $userId = 0;
         }else{
             $userModel = new \Home\Model\UserModel();
-            $user = $userModel->checkIfUserExist($openid);
+            $user = $userModel->checkIfUserExistVideo($openid);
             if(count($user) <= 0){
                 $userModel = new \Home\Model\UserModel();
-                $user = $userModel->addUser($openid);
+                $user = $userModel->addUserVideo($openid);
             }
             $userId = $user[0]['id'];
             session('sfz', $userId);

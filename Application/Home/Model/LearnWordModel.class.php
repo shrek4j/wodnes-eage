@@ -155,7 +155,7 @@ class LearnWordModel extends Model {
     }
 
     public function checkCollectWord($userId,$wordId){
-        $sql = "SELECT count(1) FROM user_video_word_learn WHERE user_id=%d AND word_id=%d";
+        $sql = "SELECT count(1) as count FROM user_video_word_learn WHERE user_id=%d AND word_id=%d";
         return $this->query($sql,$userId,$wordId);
     }
 }

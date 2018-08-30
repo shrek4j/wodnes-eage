@@ -344,9 +344,9 @@ class LearnWordController extends Controller {
 	}
 
 	public function showVideoWordCollectsByUserPaging($userId,$start,$pageSize){
-        $collectRootModel = new \Home\Model\CollectRootModel();
-        $rootCollectsList = $collectRootModel->showVideoWordCollectsByUserPaging($userId,$start,$pageSize);
-        $count = $collectRootModel->countVideoWordCollects($userId);
+        $learnWordModel = new \Home\Model\LearnWordModel();
+        $rootCollectsList = $learnWordModel->showVideoWordCollectsByUserPaging($userId,$start,$pageSize);
+        $count = $learnWordModel->countVideoWordCollects($userId);
         $result = array("collects"=>$rootCollectsList,"totalCount"=>$count[0]['count']);
         $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);

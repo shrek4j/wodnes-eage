@@ -42,7 +42,7 @@ class CollectRootModel extends Model {
 
     public function showVideoWordCollectsByUserPaging($userId,$start,$pageSize){
         $sql = "SELECT ww.* FROM user_video_word_learn uvwl LEFT JOIN wiki_word ww ON uvwl.word_id=ww.id WHERE uvwl.user_id=%d ORDER BY uvwl.id DESC LIMIT %d,%d";
-        return $this->query(intval($userId),intval($start),intval($pageSize));
+        return $this->query($userId,$start,$pageSize);
     }
 
     public function countVideoWordCollects($userId){

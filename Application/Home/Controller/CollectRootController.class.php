@@ -65,12 +65,4 @@ class CollectRootController extends Controller {
         $this->ajaxReturn($data);
     }
 
-    public function showVideoWordCollectsByUserPaging($userId=0,$start=0,$pageSize=10){
-        $collectRootModel = new \Home\Model\CollectRootModel();
-        $rootCollectsList = $collectRootModel->showVideoWordCollectsByUserPaging($userId,$start,$pageSize);
-        $count = $collectRootModel->countVideoWordCollects($userId);
-        $result = array("collects"=>$rootCollectsList,"totalCount"=>$count[0]['count']);
-        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
-        $this->ajaxReturn($data);
-    }
 }

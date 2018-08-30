@@ -143,4 +143,19 @@ class LearnWordModel extends Model {
         $sql = "select sen_en,sen_cn,source from wiki_word_sen where word_id=%d";
         return $this->query($sql,$wordId);
     }
+
+    public function collectVideoWord($userId,$wordId){
+        $sql = "INSERT INTO user_video_word_learn (user_id, word_id) VALUES(%d,%d)";
+        return $this->execute($sql,$userId,$wordId);
+    }
+
+    public function uncollectVideoWord($userId,$wordId){
+        $sql = "DELETE FROM user_video_word_learn WHERE user_id=%d AND word_id=%d";
+        return $this->execute($sql,$userId,$wordId);
+    }
+
+    public function checkCollectWord($userId,$wordId){
+        $sql = "SELECT count(1) FROM user_video_word_learn WHERE user_id=%d AND word_id=%d";
+        return $this->query($sql,$userId,$wordId);
+    }
 }

@@ -306,7 +306,7 @@ class LearnWordController extends Controller {
         $this->ajaxReturn($data);
 	}
 
-	public function getWordInfoJson($word){
+	public function getWordInfoJson($userId,$word){
 		$word = strtolower($word);
 		$learnWordModel = new \Home\Model\LearnWordModel();
 		$wordInfo = $learnWordModel->showWordInfo($word);
@@ -319,11 +319,27 @@ class LearnWordController extends Controller {
 			$sens = $learnWordModel->showWordSens($wordId);
 			//get roots
 			$roots = $learnWordModel->getRootInfo($wordId);
-
-			$result = array("wordInfo"=>$wordInfo,"sens"=>$sens,"roots"=>$roots);
+			$count = $learnWordModel->checkCollectWord($userId,$wordId);
+			$result = array("wordInfo"=>$wordInfo,"sens"=>$sens,"roots"=>$roots,"collectCount"=>$count[0]['count']);
 	        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
 		}
 		
+        $this->ajaxReturn($data);
+	}
+
+	public function collectVideoWord($userId,$wordId){
+		$learnWordModel = new \Home\Model\LearnWordModel();
+		$learnWordModel->collectVideoWord($userId,$wordId);
+		$result = array("result"=>"ok");
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $this->ajaxReturn($data);
+	}
+
+	public function uncollectVideoWord($userId,$wordId){
+		$learnWordModel = new \Home\Model\LearnWordModel();
+		$learnWordModel->uncollectVideoWord($userId,$wordId);
+		$result = array("result"=>"ok");
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
         $this->ajaxReturn($data);
 	}
 }

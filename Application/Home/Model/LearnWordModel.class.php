@@ -158,4 +158,14 @@ class LearnWordModel extends Model {
         $sql = "SELECT count(1) as count FROM user_video_word_learn WHERE user_id=%d AND word_id=%d";
         return $this->query($sql,$userId,$wordId);
     }
+
+    public function showVideoWordCollectsByUserPaging($userId,$start,$pageSize){
+        $sql = "SELECT * FROM user_video_word_learn uvwl LEFT JOIN wiki_word ww ON uvwl.word_id=ww.id WHERE uvwl.user_id=%d order by uvwl.id desc limit %d,%d";
+        return $this->query($userId,$start,$pageSize);
+    }
+
+    public function countVideoWordCollects($userId){
+        $sql = "SELECT count(1) as count FROM user_video_word_learn uvwl LEFT JOIN wiki_word ww ON uvwl.word_id=ww.id WHERE uvwl.user_id=%d";
+        return $this->query($sql, $userId);
+    }
 }

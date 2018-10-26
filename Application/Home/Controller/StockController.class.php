@@ -12,9 +12,9 @@ class StockController extends Controller {
         $this->ajaxReturn($data);
     }
 
-    public function getStockHistoryDaily($stock){
+    public function getStockHistoryDaily($stock,$startDate,$endDate){
         $stockModel = new \Home\Model\StockModel();
-        $dailyHis = $stockModel->getStockHistoryDaily($stock);
+        $dailyHis = $stockModel->getStockHistoryDaily($stock,$startDate,$endDate);
 
         $result = array("dailyHis"=>$dailyHis);
         $data = json_encode($result);

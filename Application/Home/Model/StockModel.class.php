@@ -5,7 +5,7 @@ class StockModel extends Model {
     protected $connection = 'DB_CONFIG3';//调用配置文件中的数据库配置1
     protected $autoCheckFields =false;//模型和数据表无需一一对应
 
-    public function getStockHistoryDaily($stock){
+    public function getStockHistoryDaily($stock,$startDate,$endDate){
     	$table = "ts_history_data_0";
     	$category = substr($stock,0,1);
     	if($category == 0){
@@ -16,8 +16,8 @@ class StockModel extends Model {
     		$table = "ts_history_data_6";
     	}
 
-        $sql = "SELECT * FROM ".$table." WHERE stock_code = '%s' ORDER BY trade_date asc";
-        return $this->query($sql,$stock);
+        $sql = "SELECT trade_date,close_price FROM ".$table." WHERE stock_code = '%s' and trade_date >='%s' and trade_date <= '%s' ORDER BY trade_date asc";
+        return $this->query($sql,$stock,$startDate,$endDate);
     }
 	
 	public function getAllStocks(){

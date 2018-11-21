@@ -64,6 +64,12 @@
                 <p id="resultShow" class="form-control-static">0元</p>
             </div>
           </div>
+          <div class="form-group">
+            <label for="resultPercent" class="col-sm-4 control-label">收益率</label>
+            <div class="col-sm-6">
+                <p id="resultPercentShow" class="form-control-static">0%</p>
+            </div>
+          </div>
         </form>
 
         <form id="buyForm" class="form-horizontal" style="width:400px;margin: 40px 20px 60px 20px;" onsubmit="return false;">
@@ -271,7 +277,9 @@
             $("#totalSharesShow").html(totalShares+"股");
             var resultTotal = totalMoney - totalInputMoney;
             var formatResultTotal = OSREC.CurrencyFormatter.format(resultTotal, { currency: 'CNY' });
-            $("#resultShow").html(formatResultTotal);
+            var percent = totalMoney*100 / totalInputMoney;
+            $("#resultShow").html(formatResultTotal+"元");
+            $("#resultPercentShow").html(percent+"%");
 
             var formatProfit = OSREC.CurrencyFormatter.format(profit, { currency: 'CNY' });
             var oneTrade = "<tr class='info'><td>卖出</td><td>"+ price +"元</td><td>"+ shares +"股</td><td>"+ formatProfit +"元</td></tr>"

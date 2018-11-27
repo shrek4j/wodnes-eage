@@ -13,27 +13,18 @@
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.3.0/css/amazeui.min.css">
     <style type="text/css">
-        .myBody{font-size: 12px;background-color:#eee;}
+        .myBody{font-size: 14px;background-color:#eee;}
+        .auto-buy-shares{margin-right:8px;}
+        .auto-sell-shares{margin-right:8px;}
+        .buy_warning{background-color:#f0ad4e;color:#fff;}
+        .sell_info{background-color:#5bc0de;color:#fff;}
+        .trade_head{background-color: }
     </style>
     
 </head>
 <body class="myBody">
-    <div>
-        <form id="addMoneyForm" class="form-horizontal" style="width:400px;margin: 20px;" onsubmit="return false;">
-          <div class="form-group">
-            <label for="addMoney" class="col-sm-4 control-label">追加资金</label>
-            <div class="col-sm-6">
-              <input class="form-control" id="addMoney" value="100000" autocomplete="off">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-10">
-              <button id="confirmAdd"  class="btn btn-default">确定</button>
-            </div>
-          </div>
-        </form>
-
-        <form id="statusForm" class="form-horizontal" style="width:400px;margin: 20px;" onsubmit="return false;">
+    <div style=" position: absolute; left:0px;top: 20px;">
+        <form id="statusForm" class="form-horizontal" style="width:300px;margin: 20px;" onsubmit="return false;">
           <div class="form-group">
             <label for="totalMoney" class="col-sm-4 control-label">总资产</label>
             <div class="col-sm-6">
@@ -71,18 +62,35 @@
             </div>
           </div>
         </form>
-
-        <form id="buyForm" class="form-horizontal" style="width:400px;margin: 40px 20px 60px 20px;" onsubmit="return false;">
+    </div>
+    <div style=" position: absolute; left:220px;top: 20px;">
+        <form id="addMoneyForm" class="form-horizontal" style="width:400px;margin: 20px;" onsubmit="return false;">
           <div class="form-group">
-            <label for="buyShares" class="col-sm-4 control-label">总值</label>
+            <label for="addMoney" class="col-sm-4 control-label">追加资金</label>
             <div class="col-sm-6">
-              <p id="buyCostShow" class="form-control-static">0元</p>
+              <input class="form-control" id="addMoney" value="100000" autocomplete="off">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+              <button id="confirmAdd"  class="btn btn-default">确定</button>
+            </div>
+          </div>
+        </form>
+        <form id="buyForm" class="form-horizontal" style="width:400px;margin: 60px 20px 20px 20px;" onsubmit="return false;">
+          <div class="form-group">
+            <label for="buyDate" class="col-sm-4 control-label">买入日期</label>
+            <div class="col-sm-4">
+              <input class="form-control" id="buyDate" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
             <label for="buyPrice" class="col-sm-4 control-label">买入价</label>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <input class="form-control" id="buyPrice" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+              <p id="buyCostShow" class="form-control-static">0元</p>
             </div>
           </div>
           <div class="form-group">
@@ -90,25 +98,34 @@
             <div class="col-sm-6">
               <input class="form-control" id="buyShares" placeholder="" autocomplete="off">
             </div>
+            <div class="col-sm-2">
+              <button class="btn btn-default btn-warning" id="confirmBuy">买入</button>
+            </div>
           </div>
           <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-10">
-              <button class="btn btn-default" id="confirmBuy">买入</button>
+            <div class="col-sm-offset-4  col-sm-10">
+                <button class="btn btn-default auto-buy-shares" percent="1">全仓</button>
+                <button class="btn btn-default auto-buy-shares" percent="0.5">1/2仓</button>
+                <button class="btn btn-default auto-buy-shares" percent="0.34">1/3仓</button>
+                <button class="btn btn-default auto-buy-shares" percent="0.25">1/4仓</button>
             </div>
           </div>
         </form>
 
-        <form id=sellForm" class="form-horizontal" style="width:400px;margin: 40px 20px 0px 20px;" onsubmit="return false;">
-        <div class="form-group">
-            <label for="sellShares" class="col-sm-4 control-label">总值</label>
-            <div class="col-sm-6">
-              <p id="sellCostShow" class="form-control-static">0元</p>
+        <form id=sellForm" class="form-horizontal" style="width:400px;margin: 60px 20px 20px 20px;" onsubmit="return false;">
+          <div class="form-group">
+            <label for="sellDate" class="col-sm-4 control-label">卖出日期</label>
+            <div class="col-sm-4">
+              <input class="form-control" id="sellDate" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
             <label for="sellPrice" class="col-sm-4 control-label">卖出价</label>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <input class="form-control" id="sellPrice" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+              <p id="sellCostShow" class="form-control-static">0元</p>
             </div>
           </div>
           <div class="form-group">
@@ -116,24 +133,51 @@
             <div class="col-sm-6">
               <input class="form-control" id="sellShares" placeholder="" autocomplete="off">
             </div>
+            <div class="col-sm-2">
+              <button class="btn btn-default btn-info" id="confirmSell">卖出</button>
+            </div>
           </div>
           <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-10">
-              <button class="btn btn-default" id="confirmSell">卖出</button>
+            <div class="col-sm-offset-4  col-sm-10">
+                <button class="btn btn-default auto-sell-shares" percent="1">全仓</button>
+                <button class="btn btn-default auto-sell-shares" percent="0.5">1/2仓</button>
+                <button class="btn btn-default auto-sell-shares" percent="0.34">1/3仓</button>
+                <button class="btn btn-default auto-sell-shares" percent="0.25">1/4仓</button>
             </div>
           </div>
         </form>
+
+        <form id=sellForm" class="form-horizontal" style="width:400px;margin: 60px 20px 20px 20px;" onsubmit="return false;">
+            <div class="form-group">
+                <label for="exportLabel" class="col-sm-4 control-label">导出记录</label>
+                <div class="col-sm-6">
+                  <input class="form-control" id="stockCode" autocomplete="off" placeholder="股票代码">
+                </div>
+                <div class="col-sm-2">
+                  <button class="btn btn-default" id="exportTradeList">导出</button>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <div style=" position: absolute; left:600px;top:20px;">
-        <table id="tradeListShow" class="table table-bordered">
-            <thead>
-                <tr><td>操作类型</td><td>价格</td><td>股数</td><td>总值</td></tr>
-            </thead>
-            <tbody id="tradeListBody">
-            </tbody>
-        </table>
+
+    <div style=" position: absolute; left:730px;top:30px;">
+        <div>
+            <table id="tradeListShow" class="table table-bordered">
+                <thead>
+                    <tr class="trade_head"><td>操作类型</td><td>日期</td><td>价格</td><td>股数</td><td>总值</td></tr>
+                </thead>
+                <tbody id="tradeListBody">
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    
+    <div style=" position: absolute; left:1200px;top:40px; ">
+        <img src="https://xqimg.imedao.com/15ab5f52a8f19473feedf255.jpg">
+    </div>
+    
 
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -150,6 +194,7 @@
         var availableMoney = parseFloat(0)
         var stockWorth = parseFloat(0)
         var totalShares = parseInt(0)
+        var jsonData = new Array()
 
         $("#confirmAdd").click(function(){
             var newMoney = parseFloat($("#addMoney").val());
@@ -166,16 +211,36 @@
             $("#availableMoneyShow").html(formatNewAvailable+"元");
         });
 
-        $("#buyPrice").keyup(function(){
-            var price = parseFloat($("#buyPrice").val());
-            var suggest = "";
+        function suggestBuyShares(percent){
             if($("#buyPrice").val() == "" || $("#buyPrice").val() == "0"){
-                suggest = "";
+                return -1;
             }else{
-                var max = Math.floor((availableMoney/price)/100) * 100;
-                suggest = "最大买入股数："+max;
+                var price = parseFloat($("#buyPrice").val());
+                var suggest = Math.floor(((availableMoney/price)*percent)/100) * 100;
+                if(percent == 1 && suggest > 100){
+                    suggest -= 100;
+                }
+                return suggest;
             }
-            $("#buyShares").attr("placeholder",suggest);
+        }
+
+        $("#buyPrice").keyup(function(){
+            var suggest = suggestBuyShares(1);
+            if(suggest != -1){
+                $("#buyShares").attr("placeholder","最大买入股数：" + suggest);
+            }
+        });
+
+        $(".auto-buy-shares").click(function(){
+            var percent = parseFloat($(this).attr("percent"));
+            var suggest = suggestBuyShares(percent);
+            if(suggest != -1){
+                $("#buyShares").val(suggest);
+                var price = parseFloat($("#buyPrice").val());
+                var shares = parseFloat($("#buyShares").val());
+                var formatCost = OSREC.CurrencyFormatter.format(price*shares, { currency: 'CNY' });
+                $("#buyCostShow").html(formatCost+"元");
+            }
         });
 
         $("#buyShares").keyup(function(){
@@ -185,19 +250,27 @@
             $("#buyCostShow").html(formatCost+"元");
         });
 
+        $("#buyShares").change(function(){
+            var price = parseFloat($("#buyPrice").val());
+            var shares = parseFloat($("#buyShares").val());
+            var formatCost = OSREC.CurrencyFormatter.format(price*shares, { currency: 'CNY' });
+            $("#buyCostShow").html(formatCost+"元");
+        });
+
         $("#confirmBuy").click(function(){
             var price = parseFloat($("#buyPrice").val());
             var shares = parseFloat($("#buyShares").val());
+            var date = $("#buyDate").val();
             var cost = price*shares;
             var spend = cost*(fee+tax);
 
-            if(totalMoney <= 0){
+            if(totalMoney <= 0.0){
                 alert("当前资金为"+totalMoney+"，请先追加资金！");
                 return;
             }
 
-            if($("#buyShares").val() == null || $("#buyShares").val() == ""){
-                alert("请先设置买入股数！");
+            if($("#buyShares").val() == null || $("#buyShares").val() == "" || shares < 100){
+                alert("最少买入100股！");
                 return;
             }
 
@@ -222,22 +295,35 @@
             $("#buyPrice").val("");
             $("#buyShares").val("");
             $("#buyShares").attr("placeholder","");
+            $("#buyDate").val("");
+            $("#buyCostShow").html("0元");
 
             var formatCost = OSREC.CurrencyFormatter.format(cost, { currency: 'CNY' });
-            var oneTrade = "<tr class='warning'><td>买入</td><td>"+ price +"元</td><td>"+ shares +"股</td><td>"+ formatCost +"元</td></tr>"
+            var oneTrade = "<tr class='buy_warning'><td>买入</td><td>"+date+"</td><td>"+ price +"元</td><td>"+ shares +"股</td><td>"+ formatCost +"元</td></tr>"
             $("#tradeListBody").prepend(oneTrade);
+            var json = {operate:'买入',date:date,price:price,shares:shares,total:cost+'元'};
+            jsonData.push(json);
         });
 
+        function suggestSellShares(percent){
+            var suggest = Math.floor((totalShares*percent)/100) * 100;
+            return suggest;
+            
+        }
+
         $("#sellPrice").keyup(function(){
+            var suggest = suggestSellShares(1);
+            $("#sellShares").attr("placeholder","最大卖出股数：" + suggest);
+        });
+
+        $(".auto-sell-shares").click(function(){
+            var percent = parseFloat($(this).attr("percent"));
+            var suggest = suggestSellShares(percent);
+            $("#sellShares").val(suggest);
             var price = parseFloat($("#sellPrice").val());
-            var suggest = "";
-            if($("#sellPrice").val() == "" || $("#sellPrice").val() == "0"){
-                suggest = "";
-            }else{
-                var max = totalShares;
-                suggest = "最大卖出股数："+max;
-            }
-            $("#sellShares").attr("placeholder",suggest);
+            var shares = parseFloat($("#sellShares").val());
+            var formatCost = OSREC.CurrencyFormatter.format(price*shares, { currency: 'CNY' });
+            $("#sellCostShow").html(formatCost+"元");
         });
         
         $("#sellShares").keyup(function(){
@@ -250,6 +336,7 @@
         $("#confirmSell").click(function(){
             var price = parseFloat($("#sellPrice").val());
             var shares = parseFloat($("#sellShares").val());
+            var date = $("#sellDate").val();
             var profit = price*shares;
             var spend = profit*fee;
             
@@ -277,14 +364,66 @@
             $("#totalSharesShow").html(totalShares+"股");
             var resultTotal = totalMoney - totalInputMoney;
             var formatResultTotal = OSREC.CurrencyFormatter.format(resultTotal, { currency: 'CNY' });
-            var percent = totalMoney*100 / totalInputMoney;
+            var percent = Math.floor(totalMoney*10000 / totalInputMoney) / 100;
             $("#resultShow").html(formatResultTotal+"元");
             $("#resultPercentShow").html(percent+"%");
 
+            $("#sellPrice").val("");
+            $("#sellShares").val("");
+            $("#sellDate").val("");
+            $("#sellShares").attr("placeholder","");
+            $("#sellCostShow").html("0元");
+
             var formatProfit = OSREC.CurrencyFormatter.format(profit, { currency: 'CNY' });
-            var oneTrade = "<tr class='info'><td>卖出</td><td>"+ price +"元</td><td>"+ shares +"股</td><td>"+ formatProfit +"元</td></tr>"
+            var oneTrade = "<tr class='sell_info'><td>卖出</td><td>"+date+"</td><td>"+ price +"元</td><td>"+ shares +"股</td><td>"+ formatProfit +"元</td></tr>"
             $("#tradeListBody").prepend(oneTrade);
+            var json = {operate:'卖出',date:date,price:price,shares:shares,total:profit+'元'};
+            jsonData.push(json);
         });
+
+
+
+        $("#exportTradeList").click(function(){
+          //列标题，逗号隔开，每一个逗号就是隔开一个单元格
+          let str = `操作类型,日期,价格,股数,总值\n`;
+          //增加\t为了不让表格显示科学计数法或者其他格式
+          for(let i = 0 ; i < jsonData.length ; i++ ){
+            for(let item in jsonData[i]){
+                str+=`${jsonData[i][item] + '\t'},`;     
+            }
+            str+='\n';
+          }
+          //encodeURIComponent解决中文乱码
+          let uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(str);
+          //通过创建a标签实现
+          var link = document.createElement("a");
+          link.href = uri;
+          //对下载的文件命名
+          var stockCode = $("#stockCode").val();
+          var nowDate = getNowFormatDate();
+          var resultPercent = $("#resultPercentShow").html();
+          link.download =  nowDate+" "+stockCode+" "+resultPercent +".csv";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+
+
+        function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
     </script>
 </body>
 </html>

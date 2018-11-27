@@ -16,7 +16,7 @@ class StockModel extends Model {
     		$table = "ts_history_data_6";
     	}
 
-        $sql = "SELECT trade_date,close_price FROM ".$table." WHERE stock_code = '%s' and trade_date >='%s' and trade_date <= '%s' ORDER BY trade_date asc";
+        $sql = "SELECT trade_date,close_price,open_price,highest_price,lowest_price FROM ".$table." WHERE stock_code = '%s' and trade_date >='%s' and trade_date <= '%s' ORDER BY trade_date asc";
         return $this->query($sql,$stock,$startDate,$endDate);
     }
 	

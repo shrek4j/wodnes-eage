@@ -1,0 +1,350 @@
+<img src="pazzle.jpg" id="pazzle" style="display:none"></img>
+<canvas id="myCanvas" width="1737" height="1214"></canvas>
+
+<script type="text/javascript">
+
+var translateFlag = false
+
+var filledR = 10
+var unfilledR = 2
+
+var currX = 350
+var currY = 150
+
+var leftMargin = 350
+var topMargin = 150
+var dotMargin = 24
+var letterMargin = 55
+var wordMargin = 40
+var lineMargin = 57
+
+window.onload = function(){
+	var sonnet = "Let me not to the marriage of true minds||Admit impediments. Love is not love||Which alters when it alteration finds,||Or bends with the remover to remove:||O, no! it is an ever-fixed mark,||That looks on tempests and is never shaken;||It is the star to every wandering bark,||Whose worth's unknown, although his height be taken.||Love 's not Time's fool, though rosy lips and cheeks||Within his bending sickle's compass come;||Love alters not with his brief hours and weeks,||But bears it out even to the edge of doom.||If this be error, and upon me prov'd,||I never writ, nor no man ever lov'd.";
+
+	sonnet = "Shrek and Clarice";
+
+	var c=document.getElementById("myCanvas");
+	var cxt=c.getContext("2d");
+	var img = document.getElementById("pazzle");
+	cxt.drawImage(img,0,0,width=1737,height=1214);
+
+	cxt.fillStyle="#DFFFDF";
+	translateFlag = true;
+	var capitalMark = false;
+
+	var brailleSonnet = assembleBrailleSonnet(sonnet);
+	var brailleLines = brailleSonnet.lines
+	for(var i=0;i< brailleLines.length;i++){
+	    var brailleWords = brailleLines[i].words
+	    for(var j=0;j<brailleWords.length;j++){
+	        var brailleLetters = brailleWords[j].letters
+	        for(var m=0;m<brailleLetters.length;m++){
+	            var brailleLetter = brailleLetters[m]
+	            renderExplainLetter(cxt,brailleLetter);
+	            var brailleDots = brailleLetter.dots
+	            for(var n=0;n<brailleDots.length;n++){
+	                var dot = brailleDots[n]
+	                renderDot(cxt,dot);
+	            }
+	        }
+	    }
+	}
+}
+
+class BrailleDot{
+    constructor(x,y, filled){
+        this.x = x
+        this.y = y
+        this.filled = filled
+        if(filled == 1){
+            this.r = filledR
+        }else{
+            this.r = unfilledR
+        }
+    }
+}
+
+class BrailleLetter{
+    constructor(){
+        this.dots = new Array()
+    }
+
+    addDot(dot){
+        this.dots.push(dot)
+    }
+
+    setLetter(letter){
+        this.letter = letter
+    }
+
+    setLetterX(x){
+        this.x = x;
+    }
+
+    setLetterY(y){
+        this.y = y;
+    }
+}
+
+class BrailleWord{
+    constructor(){
+        this.letters = new Array()
+    }
+    addLetter(letter){
+        this.letters.push(letter)
+    }
+}
+
+class BrailleLine{
+    constructor(){
+        this.words = new Array()
+    }
+    addWord(word){
+        this.words.push(word)
+    }
+}
+
+class BrailleSonnet{
+    constructor(){
+        this.lines = new Array()
+    }
+    addLine(line){
+        this.lines.push(line)
+    }
+}
+
+function calculateDotCoord(currX, currY, i){
+    if(i == 0){
+        return [currX, currY];
+    }else if(i == 1){
+        return [currX+dotMargin,currY];
+    }else if(i == 2){
+        return [currX,currY+dotMargin];
+    }else if(i == 3){
+        return [currX+dotMargin,currY+dotMargin];
+    }else if(i == 4){
+        return [currX,currY+2*dotMargin];
+    }else if(i == 5){
+        return [currX+dotMargin,currY+2*dotMargin];
+    }
+}
+
+function calculateExplainLetterCoord(currX, currY){
+    return [currX,currY+2*dotMargin+26];
+}
+
+function addLetterMargin(){
+    currX += letterMargin
+}
+
+function addWordMargin(){
+    currX += wordMargin
+}
+
+function nextLine(){
+    currX = leftMargin
+    currY += lineMargin
+}
+
+function assembleBrailleLetter(letter){
+    var dotMatrix = getDotMatrix(letter);
+    if(dotMatrix == null || dotMatrix == undefined){
+        console.log(letter);
+        return;
+    }
+    var bl = new BrailleLetter()
+    for(var i=0;i<dotMatrix.length;i++){
+        var coord = calculateDotCoord(currX, currY, i)
+        var tempX = coord[0];
+        var tempY = coord[1];
+        var dot = new BrailleDot(tempX,tempY, dotMatrix[i])
+        bl.addDot(dot);
+    }
+    if(translateFlag){
+        var coord = calculateExplainLetterCoord(currX, currY)
+        var tempX = coord[0];
+        var tempY = coord[1];
+        bl.setLetterX(tempX)
+        bl.setLetterY(tempY)
+        bl.setLetter(letter)
+    }
+    return bl;
+}
+
+function assembleBrailleWord(word){
+    var brailleWord = new BrailleWord();
+    for(var i=0;i<word.length;i++){
+        var letter = word[i]
+        if(letter.charCodeAt(0) >= 65 && letter.charCodeAt(0) <= 90){
+            var brailleLetter = assembleBrailleLetter("^");
+            brailleWord.addLetter(brailleLetter);
+            addLetterMargin();
+            letter = letter.toLowerCase();
+        }
+        brailleLetter = assembleBrailleLetter(letter);
+        brailleWord.addLetter(brailleLetter);
+        addLetterMargin();
+    }
+    return brailleWord;
+}
+
+function assembleBrailleLine(line){
+    var brailleLine = new BrailleLine();
+    var words = line.split(" ")
+    for(var i=0;i<words.length;i++){
+        var word = assembleBrailleWord(words[i])
+        brailleLine.addWord(word)
+        addWordMargin()
+    }
+    return brailleLine;
+}
+
+function assembleBrailleSonnet(sonnet){
+    var brailleSonnet = new BrailleSonnet();
+    var lines = sonnet.split("||");
+    for(var i=0;i<lines.length;i++){
+        var line = assembleBrailleLine(lines[i].replace(/\,/g," ,").replace(/\./g," ."))
+        brailleSonnet.addLine(line)
+        nextLine()
+    }
+    return brailleSonnet;
+}
+
+function renderDot(cxt,dot){
+    cxt.beginPath();
+    cxt.arc(dot.x,dot.y,dot.r,0,Math.PI*2,true);
+    cxt.closePath();
+    cxt.fill();
+}
+
+function renderExplainLetter(cxt,brailleLetter){
+    var curLetter = brailleLetter.letter;
+    if(curLetter == '^'){
+        capitalMark = true;
+    }else{
+        if(capitalMark){
+            curLetter = curLetter.toUpperCase();
+            capitalMark = false;
+        }
+        cxt.beginPath();
+        cxt.font = '18px Georgia';
+        cxt.fillText(curLetter, brailleLetter.x, brailleLetter.y)
+        cxt.closePath();
+    }
+}
+
+function getDotMatrix(letter){
+    //line 1
+    if(letter == 'a'){
+        return [1,0,0,0,0,0];
+    }
+    if(letter == 'b'){
+        return [0,1,0,0,0,0];
+    }
+    if(letter == 'c'){
+        return [0,0,0,1,0,0];
+    }
+    if(letter == 'd'){
+        return [0,0,1,0,0,0];
+    }
+    if(letter == 'e'){
+        return [1,1,0,0,0,0];
+    }
+    if(letter == 'f'){
+        return [1,0,0,1,0,0];
+    }
+    if(letter == 'g'){
+        return [1,0,1,0,0,0];
+    }
+    if(letter == 'h'){
+        return [0,1,0,1,0,0];
+    }
+    if(letter == 'i'){
+        return [0,1,1,0,0,0];
+    }
+    if(letter == 'j'){
+        return [0,0,1,1,0,0];
+    }
+    if(letter == 'k'){
+        return [1,1,0,1,0,0];
+    }
+    if(letter == 'l'){
+        return [1,1,1,0,0,0];
+    }
+    if(letter == 'm'){
+        return [1,0,1,1,0,0];
+    }
+    //line 2
+    if(letter == 'n'){
+        return [1,0,0,0,1,0];
+    }
+    if(letter == 'o'){
+        return [0,1,0,0,1,0];
+    }
+    if(letter == 'p'){
+        return [0,0,0,1,1,0];
+    }
+    if(letter == 'q'){
+        return [0,0,1,0,1,0];
+    }
+    if(letter == 'r'){
+        return [1,1,0,0,1,0];
+    }
+    if(letter == 's'){
+        return [1,0,0,1,1,0];
+    }
+    if(letter == 't'){
+        return [1,0,1,0,1,0];
+    }
+    if(letter == 'u'){
+        return [0,1,0,1,1,0];
+    }
+    if(letter == 'v'){
+        return [0,1,1,0,1,0];
+    }
+    if(letter == 'w'){
+        return [0,0,1,1,1,0];
+    }
+    if(letter == 'x'){
+        return [1,1,0,1,1,0];
+    }
+    if(letter == 'y'){
+        return [1,1,1,0,1,0];
+    }
+    if(letter == 'z'){
+        return [1,0,1,1,1,0];
+    }
+    //line 3
+    if(letter == ','){
+        return [1,0,0,0,0,1];
+    }
+    if(letter == '.'){
+        return [0,1,0,0,0,1];
+    }
+    if(letter == '?'){
+        return [0,0,0,1,0,1];
+    }
+    if(letter == '!'){
+        return [0,0,1,0,0,1];
+    }
+    if(letter == "'"){
+        return [1,1,0,0,0,1];
+    }
+    if(letter == '"'){
+        return [1,0,0,1,0,1];
+    }
+    if(letter == '-'){
+        return [1,0,1,0,0,1];
+    }
+    if(letter == ":"){
+        return [0,1,0,1,0,1];
+    }
+    if(letter == ';'){
+        return [0,1,1,0,0,1];
+    }
+    if(letter == '^'){//Caps
+        return [1,1,1,1,1,1];
+    }
+}
+
+</script>
